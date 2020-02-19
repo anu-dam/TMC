@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        clintId: {
+        ClintId: {
             type: DataTypes.STRING,
             allowNull: true
         }
@@ -45,9 +45,16 @@ module.exports = function(sequelize, DataTypes) {
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
     });
 
-
-
-
+    User.associate = function(models) {
+        // If the user is of type ClientRep, then User should belong to a Client
+        // A User can be created without an Client if it is not the type of ClientRep
+        //so allow null true. Rest of the code must be handled in JS
+        User.belongsTo(models.Client, {
+            foreignKey: {
+                allowNull: true
+            }
+        });
+    };
 
     return User;
 };
