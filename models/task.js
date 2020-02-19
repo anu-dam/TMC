@@ -13,15 +13,18 @@ module.exports = function(sequelize, DataTypes) {
             len: [1]
         },
         completedBy: {
-            //type: DataTypes.TEXT,
+            type: DataTypes.DATEONLY,
             allowNull: false
         },
         status: {
-            //type: DataTypes.TEXT,
+            type: DataTypes.STRING,
             allowNull: false
         },
         creator: {
-            //type: DataTypes.TEXT,
+            type: DataTypes.INTEGER,
             allowNull: false
         }
     });
+
+    return Task;
+}
