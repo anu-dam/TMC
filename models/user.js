@@ -49,7 +49,7 @@ module.exports = function(sequelize, DataTypes) {
         // If the user is of type ClientRep, then User should belong to a Client
         // A User can be created without an Client if it is not the type of ClientRep
         //so allow null true. Rest of the code must be handled in JS
-        User.belongsTo(models.Client, {
+        User.hasOne(models.Client, {
             foreignKey: {
                 allowNull: true
             }
