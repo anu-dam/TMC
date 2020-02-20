@@ -46,6 +46,7 @@ module.exports = function(sequelize, DataTypes) {
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
     });
 
+    //https://sequelize.readthedocs.io/en/latest/docs/associations/#difference-between-hasone-and-belongsto
     User.associate = function(models) {
         // If the user is of type ClientRep, then User should belong to a Client
         // A User can be created without an Client if it is not the type of ClientRep
