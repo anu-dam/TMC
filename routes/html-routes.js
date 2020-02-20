@@ -26,8 +26,8 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/task.html"));
   });
 
-  app.get("/client", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/client.html"));
+  app.get("/createclient", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/createclient"));
   });
 
   app.get("/viewclient", function(req, res) {
