@@ -9,43 +9,92 @@ module.exports = function(app) {
   app.get("/", function(req, res) {
     // If the user already has an account send them to the members page
    
-    res.sendFile(path.join(__dirname, "../public/signup.html"));
+    res.sendFile(path.join(__dirname, "../public/login.html"));
   });
 
-  app.get("/login", function(req, res) {
+
+  app.get("/assigntask", isAuthenticated, function(req, res) {
+    if(req.user){
+      res.sendFile(path.join(__dirname, "../public/assigntask.html"));
+    }
+    else{
+      res.redirect("/login");
+    }
+  });
+
+  app.get("/createclient", isAuthenticated, function(req, res) {
+    if(req.user){
+      res.sendFile(path.join(__dirname, "../public/createclient.html"));
+    }
+    else{
+      res.redirect("/login");
+    }
+  });
+
+  app.get("/createtask", isAuthenticated, function(req, res) {
+    if(req.user){
+      res.sendFile(path.join(__dirname, "../public/createtask.html"));
+    }
+    else{
+      res.redirect("/login");
+    }
+  });
+
+  app.get("/home", isAuthenticated, function(req, res) {
+    if(req.user){
+      res.sendFile(path.join(__dirname, "../public/home.html"));
+    }
+    else{
+      res.redirect("/login");
+    }
+  });
+
+
+  app.get("/login",  function(req, res) {
     // If the user already has an account send them to the members page
-   
-    res.sendFile(path.join(__dirname, "../public/signup.html"));
+    if (req.user) {
+      res.redirect("/home");
+    }
+    else{
+      res.sendFile(path.isAuthenticated,join(__dirname, "../public/login.html"));
+    }
   });
 
-  app.get("/signup", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/signup.html"));
+
+  app.get("/signup",  function(req, res) {
+
+      res.sendFile(path.join(__dirname, "../public/signup.html"));
+
   });
 
-  app.get("/task", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/task.html"));
+
+  // app.get("/signup", isAuthenticated, function(req, res) {
+  //   if(req.user){
+  //     res.sendFile(path.join(__dirname, "../public/signup.html"));
+  //   }
+  //   else{
+  //     res.redirect("/login");
+  //   }
+  // });
+
+
+  app.get("/viewclient", isAuthenticated, function(req, res) {
+    if(req.user){
+      res.sendFile(path.join(__dirname, "../public/viewclient.html"));
+    }
   });
 
-  app.get("/createclient", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/createclient"));
+
+  app.get("/viewclienttasks", isAuthenticated, function(req, res) {
+    if(req.user){
+      res.sendFile(path.join(__dirname, "../public/viewclienttasks"));
+    }
   });
 
-  app.get("/viewclient", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/viewclient.html"));
-  });
-
-  app.get("/viewusers", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/viewusers.html"));
-  });
-
-  app.get("/asigntask", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/assigntask.html"));
-  });
-
-  // Here we've add our isAuthenticated middleware to this route.
-  // If a user who is not logged in tries to access this route they will be redirected to the signup page
-  app.get("/members", isAuthenticated, function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/members.html"));
+  app.get("/viewusers", isAuthenticated, function(req, res) {
+    if(req.user){
+      res.sendFile(path.join(__dirname, "../public/viewusers.html"));
+    }
   });
 
 };
