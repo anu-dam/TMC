@@ -5,11 +5,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        //currently this is hardcoded as "active". In future, can change to inactive, in order to remove from school list
-        status: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -23,8 +18,20 @@ module.exports = function(sequelize, DataTypes) {
         address: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        //currently this is hardcoded as "active". In future, can change to inactive, in order to remove from school list
+        status: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
 
     });
+    Client.associate = (models) => {
+        Client.belongsToMany(models.Task, {
+            through: 'ClientTask',
+            as: 'tasks',
+            foreignKey: 'taskId'
+        });
+    };
     return Client;
 }

@@ -28,7 +28,8 @@ module.exports = function(sequelize, DataTypes) {
         },
         status: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 'Active'
         },
         ClintId: {
             type: DataTypes.STRING,
