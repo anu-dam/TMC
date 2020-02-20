@@ -14,15 +14,19 @@ module.exports = function(app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", function(req, res) {
+    console.log('req', req.body);
     db.User.create({
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      name: req.body.name,
+      type: req.body.type,
+      status: req.body.status
     })
       .then(function() {
         res.redirect(307, "/api/login");
       })
       .catch(function(err) {
-        res.status(401).json(err);
+        res.status(400).json(err);
       });
   });
 
@@ -33,7 +37,10 @@ module.exports = function(app) {
   });
 
   // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", function(req, res) {
+  app.get("/api/users", function(req, res) {
+    // if(req.user.type == 'client') return 403;
+    // if(req.user == 1) return db.User.findAll();
+    // return return db.User.findAll({});
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
