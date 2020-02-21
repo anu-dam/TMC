@@ -6,85 +6,69 @@
   <title>Blog - Express</title>
   <!-- Latest compiled and minified CSS & JS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
-  <link href="stylesheets/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <!-- <link href="stylesheets/style.css" rel="stylesheet"> -->
+  
 </head>
 <style>
-  #logout{
+  #logout {
     position: absolute;
     right: 5px;
     text-align: right;
   }
 </style>
+
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand"href="/logout" id="logout">
-              Logout
-            </a>
-            <a class="navbar-brand" href="/signup">
-              User Creation
-            </a>
-            <a class="navbar-brand" href="/task">
-              Task Creation
-            </a>
-            <a class="navbar-brand" href="/client">
-              Client Creation
-            </a>
-            <a class="navbar-brand" href="/asigntask">
-              Tasks
-            </a>
-            <a class="navbar-brand" href="/viewclient">
-              Client Table
-            </a>
-          </div>
-        
-        </div>
-      </nav>
-    
-<div class="container">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/logout" id="logout">
+          Logout
+        </a>
+        <a class="navbar-brand" href="/signup">
+          User Creation
+        </a>
+        <a class="navbar-brand" href="/task">
+          Task Creation
+        </a>
+        <a class="navbar-brand" href="/client">
+          Client Creation
+        </a>
+        <a class="navbar-brand" href="/asigntask">
+          Tasks
+        </a>
+        <a class="navbar-brand" href="/viewclient">
+          Client Table
+        </a>
+      </div>
+
+    </div>
+  </nav>
+
+  <div class="container">
     <h2>User Table</h2>
-    <p>List of users currently registered in the system</p>            
-    <table class="table table-hover">
+    <p>List of users currently registered in the system</p>
+    <table id="usertable" class="display" style="width:100%">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Email Address</th>
-          <th>User Type</th>
-          <th>Status</th>
-          <th>Client ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>User Type</th>
+            <th>Status</th>
+            <th>Client Name</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>John</td>
-          <td>john@example.com</td>
-          <td>Admin</td>
-          <td>Active</td>
-          <td>0010</td>
-        </tr>
-        <tr>
-          <td>David</td>
-          <td>david@example.com</td>
-          <td>Frontend</td>
-          <td>Active</td>
-          <td>0011</td>
-        </tr>
-        <tr>
-          <td>Emma</td>
-          <td>emma@example.com</td>
-          <td>Admin</td>
-          <td>Active</td>
-          <td>0012</td>
-        </tr>
-       
-      </tbody>
-    </table>
+    </thead>
   </div>
   <!-- Custom Script -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="js/viewusers.js"></script>
+
   
+ 
+
 
 </body>
 

@@ -4,66 +4,66 @@ var path = require("path");
 // Requiring our custom middleware for checking if a user is logged in
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 
-module.exports = function(app) {
+module.exports = function (app) {
 
-  app.get("/", function(req, res) {
+  app.get("/", function (req, res) {
     // If the user already has an account send them to the members page
-   
+
     res.sendFile(path.join(__dirname, "../public/login.html"));
   });
 
 
-  app.get("/assigntask", isAuthenticated, function(req, res) {
-    if(req.user){
+  app.get("/assigntask", isAuthenticated, function (req, res) {
+    if (req.user) {
       res.sendFile(path.join(__dirname, "../public/assigntask.html"));
     }
-    else{
+    else {
       res.redirect("/login");
     }
   });
 
-  app.get("/createclient", isAuthenticated, function(req, res) {
-    if(req.user){
+  app.get("/createclient", isAuthenticated, function (req, res) {
+    if (req.user) {
       res.sendFile(path.join(__dirname, "../public/createclient.html"));
     }
-    else{
+    else {
       res.redirect("/login");
     }
   });
 
-  app.get("/createtask", isAuthenticated, function(req, res) {
-    if(req.user){
+  app.get("/createtask", isAuthenticated, function (req, res) {
+    if (req.user) {
       res.sendFile(path.join(__dirname, "../public/createtask.html"));
     }
-    else{
+    else {
       res.redirect("/login");
     }
   });
 
-  app.get("/home", isAuthenticated, function(req, res) {
-    if(req.user){
+  app.get("/home", isAuthenticated, function (req, res) {
+    if (req.user) {
       res.sendFile(path.join(__dirname, "../public/home.html"));
     }
-    else{
+    else {
       res.redirect("/login");
     }
   });
 
 
-  app.get("/login",  function(req, res) {
+  app.get("/login", function (req, res) {
     // If the user already has an account send them to the members page
     if (req.user) {
       res.redirect("/home");
     }
-    else{
-      res.sendFile(path.isAuthenticated,join(__dirname, "../public/login.html"));
+    else {
+      res.sendFile(path.isAuthenticated, join(__dirname, "../public/login.html"));
     }
   });
 
 
-  app.get("/signup",  function(req, res) {
+  app.get("/signup", function (req, res) {
 
-      res.sendFile(path.join(__dirname, "../public/signup.html"));
+    res.sendFile(path.join(__dirname, "../public/signup.html"));
 
   });
 
@@ -78,23 +78,28 @@ module.exports = function(app) {
   // });
 
 
-  app.get("/viewclient", isAuthenticated, function(req, res) {
-    if(req.user){
+  app.get("/viewclient", isAuthenticated, function (req, res) {
+    if (req.user) {
       res.sendFile(path.join(__dirname, "../public/viewclient.html"));
     }
   });
 
 
-  app.get("/viewclienttasks", isAuthenticated, function(req, res) {
-    if(req.user){
+  app.get("/viewclienttasks", isAuthenticated, function (req, res) {
+    if (req.user) {
       res.sendFile(path.join(__dirname, "../public/viewclienttasks"));
     }
   });
 
-  app.get("/viewusers", isAuthenticated, function(req, res) {
-    if(req.user){
-      res.sendFile(path.join(__dirname, "../public/viewusers.html"));
-    }
+  // app.get("/viewusers", isAuthenticated, function(req, res) {
+  //   if(req.user){
+  //     res.sendFile(path.join(__dirname, "../public/viewusers.html"));
+  //   }
+  // });
+  app.get("/viewusers", function (req, res) {
+
+    res.sendFile(path.join(__dirname, "../public/viewusers.html"));
+
   });
 
 };
