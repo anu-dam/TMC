@@ -26,11 +26,15 @@ module.exports = function(sequelize, DataTypes) {
         },
         //this will get the login user and enter the id of the user in this column
         creator: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false
         }
     });
-
+    
+    //******************
+    // tobe enabled in future to capture the login user id while creating the user
+    /******************** */
+    
     Task.associate = (models) => {
         Task.belongsToMany(models.Client, {
             through: 'ClientTask',
