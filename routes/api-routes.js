@@ -70,6 +70,17 @@ module.exports = function (app) {
   });
 
 
+  // Route for getting task list
+  app.get("/api/viewusers", function (req, res) {
+    db.User.findAll({  
+      attributes: ['id', 'name', 'type', 'status','email'], 
+      include: [{ model: db.Client, attributes: ['id','name'] }]
+    })
+      .then(function (dbUser) {
+        console.log("api-routes:", dbUser);
+        res.json(dbUser);
+      });
+  });
 
 
 
