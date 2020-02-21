@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
-  <link href="stylesheets/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 </head>
 <style>
   #logout{
@@ -42,39 +42,25 @@
   </nav>
 
 
-<div class="container">
-    <h2>Tasks</h2>
-    <p>List of tasks currently assigned in the system to users</p>            
-    <table class="table table-hover">
+  <div class="container">
+    <h2>Task Table</h2>
+    <p>List of current tasks created in the system</p>
+    <table id="tasktable" class="display" style="width:100%">
       <thead>
         <tr>
-          <th>Task</th>
+          <th>Title</th>
           <th>Description</th>
+          <th>Due Date</th>
           <th>Status</th>
+          <th>Owner</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>Parents Meeting</td>
-          <td>Monthly Parents meeting</td>
-          <td>Assigned</td>
-        </tr>
-        <tr>
-          <td>Annual Carnival</td>
-          <td>Setting up meetings for annual school carnival</td>
-          <td>Assigned</td>
-          </tr>
-          <tr>
-            <td>Sports day activities</td>
-            <td>Setting up meetings for annual school sports day</td>
-            <td>Assigned</td>
-            </tr>
-      </tbody>
-    </table>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="js/viewclient.js"></script>
 
 </body>
 
