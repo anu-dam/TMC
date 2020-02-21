@@ -69,18 +69,17 @@ module.exports = function (app) {
     }
   });
 
+  // // id, title, description, completedBy, status, creator
+  // // Route for getting task list
+  // app.get("/api/viewtasks", function (req, res) {
+  //   db.Task.findAll({  
+  //     attributes: ['id', 'name', 'type', 'status','email'], 
 
-  // Route for getting task list
-  app.get("/api/viewusers", function (req, res) {
-    db.User.findAll({  
-      attributes: ['id', 'name', 'type', 'status','email'], 
-      include: [{ model: db.Client, attributes: ['id','name'] }]
-    })
-      .then(function (dbUser) {
-        console.log("api-routes:", dbUser);
-        res.json(dbUser);
-      });
-  });
+  //   })
+  //     .then(function (dbUser) {
+  //       res.json(dbUser);
+  //     });
+  // });
 
 
 
@@ -97,6 +96,15 @@ module.exports = function (app) {
       });
   });
 
+  // Route for getting client list
+  app.get("/api/viewclients", function (req, res) {
+    db.Client.findAll({  
+      attributes: ['id', 'name', 'email', 'address', 'status']})
+      .then(function (dbUser) {
+        console.log("api-routes:", dbUser);
+        res.json(dbUser);
+      });
+  });
 
 
 };

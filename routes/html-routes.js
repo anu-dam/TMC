@@ -78,10 +78,14 @@ module.exports = function (app) {
   // });
 
 
-  app.get("/viewclient", isAuthenticated, function (req, res) {
-    if (req.user) {
+  // app.get("/viewclient", function (req, res) {
+  //   if (req.user) {
+  //     res.sendFile(path.join(__dirname, "../public/viewclient.html"));
+  //   }
+  // });
+
+  app.get("/viewclients", function (req, res) {
       res.sendFile(path.join(__dirname, "../public/viewclient.html"));
-    }
   });
 
 

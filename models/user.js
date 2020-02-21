@@ -52,7 +52,13 @@ module.exports = function(sequelize, DataTypes) {
                 allowNull: true
             }
         });
+        User.hasMany(models.Task, {
+            foreignKey: {
+                allowNull: true
+            }
+        });
     };
+    
 
     return User;
 };
