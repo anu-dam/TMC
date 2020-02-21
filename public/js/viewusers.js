@@ -2,8 +2,9 @@ $(document).ready(function() {
     var usertable = $("#usertable");
     function getUsers() {
         $.get("/api/viewusers", function(data) {             
-            usertable.DataTable( {
+            usertable.DataTable( {                
                 data: data,
+                rowId: 'id',
                 "columns": [
                     { "data": "name" },
                     { "data": "email" },
