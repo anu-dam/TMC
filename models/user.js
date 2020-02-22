@@ -52,9 +52,9 @@ module.exports = function(sequelize, DataTypes) {
                 allowNull: true
             }
         });
-        // User.belongsTo(models.Task, {
+        // User.hasMany(models.Task, {
         //     foreignKey: {
-        //         allowNull: false
+        //         allowNull: true
         //     }
         // });
     };

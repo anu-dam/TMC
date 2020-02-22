@@ -1,5 +1,4 @@
--- drop database tmc
--- create database tmc
+create database tmc
 use tmc
 
 CREATE TABLE `clients` (
