@@ -69,22 +69,34 @@ module.exports = function (app) {
     }
   });
 
+  // // id, title, description, completedBy, status, creator
+  // // Route for getting task list
+  // app.get("/api/viewtasks", function (req, res) {
+  //   db.Task.findAll({  
+  //     attributes: ['id', 'name', 'type', 'status','email'], 
+
+  //   })
+  //     .then(function (dbUser) {
+  //       res.json(dbUser);
+  //     });
+  // });
+
+
   // id, title, description, completedBy, status, creator
   // Route for getting task list
   app.get("/api/viewtasks", function (req, res) {
     db.Task.findAll({  
-      attributes: ['id', 'name', 'type', 'status','email'], 
-
+      attributes: ['id', 'title', 'description', 'completedBy', 'status'],
+      include: [{ model: db.User, attributes: ['id','name'] }]
     })
       .then(function (dbUser) {
+        console.log(dbUser);
         res.json(dbUser);
       });
   });
 
 
-
-
-  // Route for getting user list
+ // Route for getting user list
   app.get("/api/viewusers", function (req, res) {
     db.User.findAll({  
       attributes: ['id', 'name', 'type', 'status','email'], 
@@ -95,7 +107,6 @@ module.exports = function (app) {
         res.json(dbUser);
       });
   });
-
   // Route for getting client list
   app.get("/api/viewclients", function (req, res) {
     db.Client.findAll({  
@@ -105,6 +116,5 @@ module.exports = function (app) {
         res.json(dbUser);
       });
   });
-
 
 };
