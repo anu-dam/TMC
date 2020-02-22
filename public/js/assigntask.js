@@ -5,9 +5,7 @@ function getTasks(cb) {
 }
 
 function initialiseTable(data) {
-    var taskTable = $("#tasktable");
-    var selectedRow;
-    
+    var taskTable = $("#tasktable");    
     taskTable.DataTable({
         data,
         rowId: 'id',
