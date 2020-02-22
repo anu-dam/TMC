@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var taskTable = $("#tasktable");
+    var selectedRow;
     function getTasks() {
         $.get("/api/viewtasks", function (data) {
             console.log( data);
@@ -15,13 +16,17 @@ $(document).ready(function () {
                 ]
             });
 
-            console.log("finished drawing table");
-            // var table = $('#tasktable').DataTable();
+            // console.log("finished drawing table");
+            var table = $('#tasktable').DataTable();
 
-            // $('#tasktable tbody').on('click', 'tr', function () {
-            //     console.log(table.row(this).data());
-            // });
+            $('#tasktable tbody').on('click', 'tr', function () {
+                console.log(table.row(this).data());
+                selectedRow = table.row(this).data();
+            });
         })
+
+
+        
     }
     getTasks();
 

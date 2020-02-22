@@ -10,7 +10,7 @@ $(document).ready(function () {
                     { "data": "name" },
                     { "data": "email" },
                     { "data": "address" },
-                    { "data": "status" },
+                    { "data": "status" }
                     // { "data": "Client.name", "defaultContent": "" }//if data is not avalilable, show empty column
                 ]
             });
