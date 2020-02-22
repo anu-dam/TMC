@@ -18,7 +18,7 @@ function initialiseTable(data) {
         ]
     });
     // console.log("finished drawing table");
-    var table = $('#tasktable').DataTable();
+    // var table = $('#tasktable').DataTable();
 }
 
 // When the dom is loaded
