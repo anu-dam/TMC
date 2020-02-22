@@ -15,18 +15,14 @@ module.exports = function (app) {
     res.render("assigntask");
 
   });
-  app.get("/createclient", isAuthenticated, function (req, res) {
- 
-    res.sendFile(path.join(__dirname, "../public/createclient.html"));
 
+ 
   app.get("/createclient", function (req, res) {
     res.render("createclient");
-
   });
 
   app.get("/createtask", function (req, res) {
     res.render("createtask");
-
   });
 
   app.get("/home", function (req, res) {
@@ -44,21 +40,6 @@ module.exports = function (app) {
   });
 
 
-  // app.get("/signup", isAuthenticated, function(req, res) {
-  //   if(req.user){
-  //     res.sendFile(path.join(__dirname, "../public/signup.html"));
-  //   }
-  //   else{
-  //     res.redirect("/login");
-  //   }
-  // });
-
-
-  // app.get("/viewclient", function (req, res) {
-  //   if (req.user) {
-  //     res.sendFile(path.join(__dirname, "../public/viewclient.html"));
-  //   }
-  // });
 
   app.get("/viewclient", function (req, res) {
     res.render("viewclient");
@@ -69,13 +50,8 @@ module.exports = function (app) {
     res.render("viewclienttasks");
   });
 
-  // app.get("/viewusers", isAuthenticated, function(req, res) {
-  //   if(req.user){
-  //     res.sendFile(path.join(__dirname, "../public/viewusers.html"));
-  //   }
-  // });
-  app.get("/viewusers", function (req, res) {
 
+  app.get("/viewusers", function (req, res) {
     res.render("viewusers");
   });
 
@@ -85,11 +61,11 @@ module.exports = function (app) {
   });
 
   app.get("/assigntasks", function (req, res) {
-    res.sendFile(path.join(__dirname, "../public/assigntask.html"));
+    res.render("assigntask");
   });
   
   app.get("/viewtasks", function (req, res) {
-    res.sendFile(path.join(__dirname, "../public/assigntask.html"));
+    res.render("assigntask");
   });
 
 };
