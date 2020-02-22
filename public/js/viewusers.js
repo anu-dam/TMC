@@ -16,13 +16,13 @@ $(document).ready(function () {
                 ]
             });
 
-            console.log("finished drawing table");
+            // console.log("finished drawing table");
 
-            var table = $('#usertable').DataTable();
+            // var table = $('#usertable').DataTable();
 
-            $('#usertable tbody').on('click', 'tr', function () {
-                console.log(table.row(this).data());
-            });
+            // $('#usertable tbody').on('click', 'tr', function () {
+            //     console.log(table.row(this).data());
+            // });
         })
 
     }

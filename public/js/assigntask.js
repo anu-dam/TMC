@@ -1,9 +1,9 @@
 $(document).ready(function () {
     var taskTable = $("#tasktable");
-
     function getTasks() {
         $.get("/api/viewtasks", function (data) {
-            clientTable.DataTable({
+            console.log( data);
+            taskTable.DataTable({
                 data: data,
                 rowId: 'id',
                 "columns": [
@@ -11,18 +11,17 @@ $(document).ready(function () {
                     { "data": "description" },
                     { "data": "completedBy" },
                     { "data": "status" },
-                    { "data": "creator" }
-                    
-                    // { "data": "Client.name", "defaultContent": "" }//if data is not avalilable, show empty column
+                    { "data": "User.name"}                    
                 ]
             });
-            var table = $('#tasktable').DataTable();
 
-            $('#tasktable tbody').on('click', 'tr', function () {
-                console.log(table.row(this).data());
-            });
+            console.log("finished drawing table");
+            // var table = $('#tasktable').DataTable();
+
+            // $('#tasktable tbody').on('click', 'tr', function () {
+            //     console.log(table.row(this).data());
+            // });
         })
-
     }
     getTasks();
 

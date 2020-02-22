@@ -73,8 +73,8 @@ module.exports = function (app) {
   // Route for getting task list
   app.get("/api/viewtasks", function (req, res) {
     db.Task.findAll({  
-      attributes: ['id', 'name', 'type', 'status','email'], 
-
+      attributes: ['id', 'title', 'description', 'completedBy', 'status'],
+      include: [{ model: db.User, attributes: ['id','name'] }]
     })
       .then(function (dbUser) {
         res.json(dbUser);

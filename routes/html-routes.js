@@ -85,14 +85,16 @@ module.exports = function (app) {
   // });
 
   app.get("/viewclients", function (req, res) {
-      res.sendFile(path.join(__dirname, "../public/viewclient.html"));
+    res.sendFile(path.join(__dirname, "../public/viewclient.html"));
   });
 
 
+
+
   app.get("/viewclienttasks", isAuthenticated, function (req, res) {
-    if (req.user) {
-      res.sendFile(path.join(__dirname, "../public/viewclienttasks"));
-    }
+
+    res.sendFile(path.join(__dirname, "../public/viewclienttasks"));
+
   });
 
   // app.get("/viewusers", isAuthenticated, function(req, res) {
@@ -104,6 +106,14 @@ module.exports = function (app) {
 
     res.sendFile(path.join(__dirname, "../public/viewusers.html"));
 
+  });
+
+  app.get("/assigntasks", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/assigntask.html"));
+  });
+  
+  app.get("/viewtasks", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/assigntask.html"));
   });
 
 };
