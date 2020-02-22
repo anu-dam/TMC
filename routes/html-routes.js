@@ -21,15 +21,20 @@ module.exports = function(app) {
       res.redirect("/login");
     }
   });
+  app.get("/createclient", isAuthenticated, function (req, res) {
+ 
+    res.sendFile(path.join(__dirname, "../public/createclient.html"));
 
-  app.get("/createclient", isAuthenticated, function(req, res) {
-    if(req.user){
-      res.sendFile(path.join(__dirname, "../public/createclient.html"));
-    }
-    else{
-      res.redirect("/login");
-    }
   });
+  // app.get("/createclient", isAuthenticated, function (req, res) {
+  //   if (req.user) {
+  //     res.sendFile(path.join(__dirname, "../public/createclient.html"));
+  //   }
+  //   else {
+  //     res.redirect("/login");
+  //   }
+  // });
+
 
   app.get("/createtask", isAuthenticated, function(req, res) {
     if(req.user){

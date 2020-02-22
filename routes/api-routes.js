@@ -53,4 +53,29 @@ module.exports = function(app) {
       });
     }
   });
+
+  //******************************** */
+  app.post("/api/createclient", function (req, res) {    
+
+    var clientData = {
+        name: req.body.name, 
+        address: req.body.address,
+        email: req.body.email,
+        status: req.body.status
+      }
+   
+    console.log("req:", clientData);
+    db.Client.create(clientData)
+      .then(function () {
+        console.log("pass");
+        res.redirect('/');
+      })
+      .catch(function (err) {
+        console.log("error"+err);
+        res.status(401).json(err);
+      });
+  });
+
+  //*************************************** */
+
 };
