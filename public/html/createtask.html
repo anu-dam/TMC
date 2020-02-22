@@ -15,7 +15,6 @@
     text-align: right;
   }
 </style>
-
 <body>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -26,8 +25,8 @@
         <a class="navbar-brand" href="/signup">
             User Creation
           </a>
-          <a class="navbar-brand" href="/task">
-            Task Creation
+          <a class="navbar-brand" href="/client">
+            Client Creation
           </a>
           <a class="navbar-brand" href="/asigntask">
             Tasks
@@ -44,37 +43,37 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <h2>Client Creation Form</h2>
+        <h2>Task Creation Form</h2>
         <form class="signup">
           <div class="form-group">
-            <label for="exampleInputEmail1">School Name</label>
-            <input type="name" class="form-control" id="title-input" placeholder="School Name">
+            <label for="exampleInputEmail1">Title</label>
+            <input type="title" class="form-control" id="title-input" placeholder="Title">
           </div>
           <div class="form-group">
-            <label for="inputAddress">Address</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-          </div>
-            <div class="form-group">
-              <label for="inputCity">City</label>
-              <input type="text" class="form-control" id="inputCity" placeholder="Adelaide">
-            </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="email" class="form-control" id="title-input" placeholder="Email">
+            <label for="exampleFormControlTextarea1">Description</label>
+            <textarea class="form-control" id="description" rows="3"></textarea>
           </div>
           <div class="form-group">
             <label for="status">Status</label>
             <select class="form-control" id="exampleFormControlSelect1">
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
+              <option>Created</option>
+              <option>Assigned</option>
+              <option>Completed</option>
             </select>
           </div>
+          <label for="exampleInputEmail1">Due Date</label>
+          <div class="input-group date" data-provide="datepicker">
+            <input type="text" class="form-control">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
           <br>
           <div style="display: none" id="alert" class="alert alert-danger" role="alert">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span class="sr-only">Error:</span> <span class="msg"></span>
           </div>
-          <button type="submit" class="btn btn-default">Create Client</button>
+          <button type="submit" class="btn btn-default">Create Task</button>
         </form>
         <br />
         <!-- <p>Or log in <a href="/login">here</a></p> -->
@@ -83,7 +82,7 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/client.js"></script>
+  <script type="text/javascript" src="js/task.js"></script>
 
 </body>
 

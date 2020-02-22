@@ -23,19 +23,24 @@ module.exports = function(sequelize, DataTypes) {
         status: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        //this will get the login user and enter the id of the user in this column
-        creator: {
-            type: DataTypes.INTEGER,
-            allowNull: false
         }
-    });
+        //this will get the login user and enter the id of the user in this column
 
+    });
+    
+    //******************
+    // tobe enabled in future to capture the login user id while creating the user
+    /******************** */
+    
     Task.associate = (models) => {
         Task.belongsToMany(models.Client, {
             through: 'ClientTask',
             as: 'clients',
             foreignKey: 'clientId'
+        });
+        Task.belongsTo(models.User, {
+            foreignKey: 'id',
+            allowNull: false
         });
     };
 
