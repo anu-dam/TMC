@@ -38,9 +38,11 @@ module.exports = function(sequelize, DataTypes) {
             as: 'clients',
             foreignKey: 'clientId'
         });
+        
         Task.belongsTo(models.User, {
-            foreignKey: 'id',
-            allowNull: false
+            foreignKey: {
+                allowNull: false
+            }
         });
     };
 
