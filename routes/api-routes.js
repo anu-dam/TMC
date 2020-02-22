@@ -135,4 +135,12 @@ module.exports = function (app) {
       });
   });
 
+  app.get("/api/signup", function (req, res) {
+    db.User.findAll({  
+      attributes: ['id', 'name', 'email', 'address', 'status']})
+      .then(function (dbUser) {
+        res.json(dbUser);
+      });
+  });
+
 };
