@@ -84,4 +84,12 @@ module.exports = function (app) {
     res.render("assigntask");
   });
 
+  app.get("/assigntasks", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/assigntask.html"));
+  });
+  
+  app.get("/viewtasks", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/assigntask.html"));
+  });
+
 };

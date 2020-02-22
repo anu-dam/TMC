@@ -9,12 +9,13 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 </head>
 <style>
-  #logout{
+  #logout {
     position: absolute;
     right: 5px;
     text-align: right;
   }
 </style>
+
 <body>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -23,44 +24,46 @@
           Logout
         </a>
         <a class="navbar-brand" href="/signup">
-            User Creation
-          </a>
-          <a class="navbar-brand" href="/client">
-            Client Creation
-          </a>
-          <a class="navbar-brand" href="/task">
-            Task Creation
-          </a>
-          <a class="navbar-brand" href="/viewusers">
-            User Table
-          </a>
-          <a class="navbar-brand" href="/viewclient">
-            Client Table
-          </a>
+          User Creation
+        </a>
+        <a class="navbar-brand" href="/client">
+          Client Creation
+        </a>
+        <a class="navbar-brand" href="/task">
+          Task Creation
+        </a>
+        <a class="navbar-brand" href="/viewusers">
+          User Table
+        </a>
+        <a class="navbar-brand" href="/viewclient">
+          Client Table
+        </a>
       </div>
     </div>
   </nav>
 
 
   <div class="container">
-    <h2>Task Table</h2>
-    <p>List of current tasks created in the system</p>
+    <h2>Task List</h2>
+    <p>List of tasks currently in the system</p>
     <table id="tasktable" class="display" style="width:100%">
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Due Date</th>
-          <th>Status</th>
-          <th>Owner</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Owner</th>
         </tr>
-      </thead>
+    </thead>
   </div>
+
+
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" src="js/viewclient.js"></script>
+  <script type="text/javascript" src="js/assigntask.js"></script>
 
 </body>
 
