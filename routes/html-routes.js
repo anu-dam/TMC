@@ -15,6 +15,9 @@ module.exports = function (app) {
     res.render("assigntask");
 
   });
+  app.get("/createclient", isAuthenticated, function (req, res) {
+ 
+    res.sendFile(path.join(__dirname, "../public/createclient.html"));
 
   app.get("/createclient", function (req, res) {
     res.render("createclient");
