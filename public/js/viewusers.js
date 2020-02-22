@@ -1,6 +1,5 @@
 $(document).ready(function () {
     var usertable = $("#usertable");
-
     function getUsers() {
         $.get("/api/viewusers", function (data) {
             console.log("finished api query")
@@ -24,12 +23,6 @@ $(document).ready(function () {
             //     console.log(table.row(this).data());
             // });
         })
-
     }
-
-
-
-
     getUsers();
-
 });

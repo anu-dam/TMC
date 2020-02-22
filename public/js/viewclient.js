@@ -1,6 +1,5 @@
 $(document).ready(function () {
     var clientTable = $("#clienttable");
-
     function getClients() {
         $.get("/api/viewclients", function (data) {
             clientTable.DataTable({
@@ -15,17 +14,10 @@ $(document).ready(function () {
                 ]
             });
             // var table = $('#clienttable').DataTable();
-
             // $('#clienttable tbody').on('click', 'tr', function () {
             //     console.log(table.row(this).data());
             // });
         })
-
     }
-
-
-
-
     getClients();
-
 });
