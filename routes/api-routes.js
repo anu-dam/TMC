@@ -69,17 +69,17 @@ module.exports = function (app) {
     }
   });
 
-  // // id, title, description, completedBy, status, creator
-  // // Route for getting task list
-  // app.get("/api/viewtasks", function (req, res) {
-  //   db.Task.findAll({  
-  //     attributes: ['id', 'name', 'type', 'status','email'], 
+  // id, title, description, completedBy, status, creator
+  // Route for getting task list
+  app.get("/api/viewtasks", function (req, res) {
+    db.Task.findAll({  
+      attributes: ['id', 'name', 'type', 'status','email'], 
 
-  //   })
-  //     .then(function (dbUser) {
-  //       res.json(dbUser);
-  //     });
-  // });
+    })
+      .then(function (dbUser) {
+        res.json(dbUser);
+      });
+  });
 
 
 
