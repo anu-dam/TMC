@@ -2,26 +2,26 @@ function getUsers(cb) {
     $.get("/api/viewusers", function (data) {
         console.log("/api/viewusers");
         console.log(data);
-       return cb(data);
+        return cb(data);
     })
 }
 
 function initialiseTable(data) {
     var usertable = $("#usertable");
-                usertable.DataTable({
-                data,
-                rowId: 'id',
-                "columns": [
-                    { "data": "name" },
-                    { "data": "email" },
-                    { "data": "type" },
-                    { "data": "status" },
-                    { "data": "Client.name", "defaultContent": "" }//if data is not avalilable, show empty column
-                ]
-            });
-        }
+    usertable.DataTable({
+        data,
+        rowId: 'id',
+        "columns": [
+            { "data": "name" },
+            { "data": "email" },
+            { "data": "type" },
+            { "data": "status" },
+            { "data": "Client.name", "defaultContent": "" }//if data is not avalilable, show empty column
+        ]
+    });
+}
 
-getUsers(function(allUsers) {
+getUsers(function (allUsers) {
     initialiseTable(allUsers);
 })
 

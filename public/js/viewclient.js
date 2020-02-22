@@ -4,7 +4,10 @@ function getClients(cb) {
     })
 }
 
+
 function initialiseTable(data) {
+    var clientTable = $("#clienttable");
+    console.log(data);
     clientTable.DataTable({
         data,
         rowId: 'id',

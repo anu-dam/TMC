@@ -40,7 +40,6 @@ module.exports = function (app) {
         res.redirect(307, "/api/login");
       })
       .catch(function (err) {
-        console.log(err);
         res.status(400).json(err);
       });
   });
@@ -82,11 +81,9 @@ module.exports = function (app) {
     console.log("req:", clientData);
     db.Client.create(clientData)
       .then(function () {
-        console.log("pass");
         res.redirect('/');
       })
       .catch(function (err) {
-        console.log("error"+err);
         res.status(401).json(err);
       });
   });
@@ -113,7 +110,6 @@ module.exports = function (app) {
       include: [{ model: db.User, attributes: ['id','name'] }]
     })
       .then(function (dbUser) {
-        console.log(dbUser);
         res.json(dbUser);
       });
   });
@@ -135,7 +131,6 @@ module.exports = function (app) {
     db.Client.findAll({  
       attributes: ['id', 'name', 'email', 'address', 'status']})
       .then(function (dbUser) {
-        console.log("api-routes:", dbUser);
         res.json(dbUser);
       });
   });
