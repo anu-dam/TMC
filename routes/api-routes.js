@@ -78,7 +78,7 @@ module.exports = function (app) {
         status: req.body.status
       }
    
-    console.log("req:", clientData);
+    
     db.Client.create(clientData)
       .then(function () {
         res.redirect('/');
@@ -122,7 +122,7 @@ module.exports = function (app) {
       include: [{ model: db.Client, attributes: ['id','name'] }]
     })
       .then(function (dbUser) {
-        console.log("api-routes:", dbUser);
+        
         res.json(dbUser);
       });
   });

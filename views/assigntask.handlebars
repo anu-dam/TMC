@@ -1,4 +1,5 @@
 <script src="/js/assigntask.js"></script>
+<link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
 
 <body>
@@ -16,4 +17,30 @@
           <th>Owner</th>
         </tr>
       </thead>
+  </div>
+
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4 id="tasktitle"></h4>
+
+      <hr>
+      <h6>Task Details</h6>
+      <p id="taskdetail"></p>
+      <br>
+      <h6>Task Completion Date</h6>
+      <p id="taskcompletedby"></p>
+      <br>
+      <h6>Task Status</h6>
+      <p id="tasstatus"></p>
+      <br>
+      <h6>Task Owner</h6>
+      <p id="taskowner"></p>
+    </div>
+    <div class="modal-footer">
+      <button id="assign" class="waves-effect waves-light btn">Assign</button>
+      <a href="#!" id="cancel" class="modal-close btn waves-red">Cancel</a>
+    </div>
+
   </div>
