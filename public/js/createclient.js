@@ -2,20 +2,19 @@ $(document).ready(function() {
 
     // Getting references to our form and inputs
     var loginForm = $("#submit");
-    var name = $("#title-input");
-    var address = $("#inputAddress");
-    var city = $("#inputCity");
-    var email = $("#email-input");
+    var name = $("#name");
+    var address = $("#address");
+    var email = $("#email");
     var status = $("#status");
 
     // When the form is submitted, we validate there's an email and password entered
     loginForm.on("click", function(event) {
+
         event.preventDefault();
         var clientData = {
             name: name.val().trim(),
-            address: address.val().trim(),
-            city: city.val().trim(),
             email: email.val().trim(),
+            address: address.val().trim(),
             status: status.val()
 
         };
@@ -30,9 +29,8 @@ $(document).ready(function() {
     function loginUser(clientData) {
         $.post("/api/createclient", {
             name: clientData.name,
-            address: clientData.address,
-            city: clientData.city,
             email: clientData.email,
+            address: clientData.address,
             status: clientData.status
         })
             .then(function() {
