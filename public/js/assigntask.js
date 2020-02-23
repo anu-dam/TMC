@@ -46,6 +46,9 @@ $(document).ready(function () {
         $("#taskcompletedby").text(selectedRow.completedBy);
         $("#tasstatus").text(selectedRow.status);
         $("#taskowner").text(selectedRow.User.name);
+        // if (txt.value != '') {
+        //     bt.disabled = false;
+        // }
         openModel();
 
     });
@@ -69,6 +72,6 @@ getTasks(function (allTasks) {
 $(document).on("click", "#assign", function(){
     var taskID = $("#assign").data().id;
     var taskStatus = $("#assign").data().status;
-    // console.log(taskID, taskStatus);
+    console.log(taskID, taskStatus);
 });
 
