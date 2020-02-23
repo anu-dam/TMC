@@ -1,0 +1,16 @@
+h1 {
+    text-align: center;
+}
+
+body {
+    
+    background-image: url("../img/task-management.jpg"); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0px 260px;
+
+}
+
+h2 {
+    text-align: center;
+}
