@@ -34,11 +34,6 @@ $(document).ready(function () {
         console.log(table.row(this).data());
         selectedRow = table.row(this).data();
 
-        //     <h4 id="tasktitle"></h4>
-        //   <p id="taskdetail"></p>
-        //   <p id="taskcompletedby"></p>
-        //   <p id="tasstatus"></p>
-        //   <p id="taskowner"></p>
         $("#assign").attr('data-id',selectedRow.id);
         $("#assign").attr('data-status',selectedRow.status);
         $("#tasktitle").text(selectedRow.title);
@@ -46,10 +41,10 @@ $(document).ready(function () {
         $("#taskcompletedby").text(selectedRow.completedBy);
         $("#tasstatus").text(selectedRow.status);
         $("#taskowner").text(selectedRow.User.name);
-        // if (txt.value != '') {
+        // if ($("#tasstatus").text()==="") {
         //     bt.disabled = false;
         // }
-        openModel();
+        // openModel();
 
     });
 });
