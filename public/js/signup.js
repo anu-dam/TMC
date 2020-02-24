@@ -10,6 +10,19 @@ $(document).ready(function() {
 
     var userData;
 
+    $.ajax({
+        url : "/api/viewclients",
+        type : "GET",
+        success : function(data){
+
+            var len = data.length;
+
+            console.log(data);
+            
+        }
+    });
+
+
     // When the signup button is clicked, we validate the email and password are not blank
     signUpForm.on("submit", function(event) {
         event.preventDefault();
@@ -39,7 +52,7 @@ $(document).ready(function() {
         console.log('userdata', userData);
         $.post("/api/signup", userData)
             .then(function(data) {
-                window.location.replace("/home");
+                window.location.replace("/viewusers");
                 // If there's an error, handle it by throwing up a bootstrap alert
             })
             .catch(handleLoginErr);
