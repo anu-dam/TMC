@@ -110,7 +110,7 @@ module.exports = function (app) {
         description: req.body.description,
         status: req.body.status,
         completedBy: req.body.date,
-        ClientId: req.body.ClientId,
+        // ClientId: req.body.ClientId,
         UserId: req.body.UserId
       }
     
