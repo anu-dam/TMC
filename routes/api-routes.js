@@ -166,7 +166,7 @@ module.exports = function (app) {
   });
 
   app.get("/api/signup", function (req, res) {
-    
+
     db.User.findAll({
       attributes: ['id', 'name', 'email', 'address', 'status']
     })
@@ -190,19 +190,40 @@ module.exports = function (app) {
   });
 
   //******************************** */
-  app.post("/api/createclienttasks", function (req, res) {  
-    var data = req.body.data;    
+  app.post("/api/createclienttasks", function (req, res) {
+    var data = req.body.data;
     console.log(data);
-    db.ClientTask.bulkCreate(JSON.parse(data),{ validate: true })
-      .then(function (res) {
-        console.log(res);
-        res.redirect('/');
+    db.ClientTask.bulkCreate(JSON.parse(data), { validate: true })
+      .then(function () {
+        res.redirect('/assigntasks');
       })
       .catch(function (err) {
         console.log(err);
         res.status(401).json(err);
       });
   });
+
+
+  app.put("/api/updataskstatus", function (req, res) {
+    var data = req.body;
+    console.log(data);
+    db.Task.update(
+      { status: 'Assigned' },
+      { where: {id: data.id } }
+    )
+      .then(function () {
+        res.redirect('/assigntasks');
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
+  });
+
+
+
+
+
 
   // Route for getting clienttasks list
   app.get("/api/viewclienttasks", function (req, res) {
@@ -215,7 +236,7 @@ module.exports = function (app) {
         res.json(dbUser);
       });
   });
-  
+
 
 
 };
