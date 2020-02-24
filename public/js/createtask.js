@@ -6,7 +6,7 @@ $(document).ready(function() {
     var description = $("#description");
     var status = $("#status");
     var date = $("#date");
-    
+    var ClientId = $("#id");
 
     // When the form is submitted, we validate there's an email and password entered
     taskForm.on("click", function(event) {
@@ -15,7 +15,9 @@ $(document).ready(function() {
             title: title.val().trim(),
             description: description.val().trim(),
             status: ("created"),
-            date: ("2020-05-30")
+            date: ("2020-05-30"),
+            ClientId: ClientId.val(),
+            UserId: (2)
         };
 
         console.log(taskData);
@@ -30,7 +32,9 @@ $(document).ready(function() {
             title: taskData.title,
             description: taskData.description,
             status: taskData.status,
-            date: taskData.date
+            date: taskData.date,
+            ClientId: taskData.ClientId,
+            UserId: taskData.UserId
         })
             
             .then(function() {

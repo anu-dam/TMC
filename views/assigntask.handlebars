@@ -3,11 +3,13 @@
 </head>
 
 <body>
-  {{> navbar }}
+  {{> admin }}
+
+
   <div class="container">
     <h2>Task Table</h2>
     <p>List of current tasks created in the system</p>
-    <table id="tasktable" class="display" style="width:100%">
+    <table id="tasktable" class="row-border" style="width:100%">
       <thead>
         <tr>
           <th>Title</th>
@@ -40,7 +42,8 @@
     </div>
     <div class="modal-footer">
       <button id="assign" class="waves-effect waves-light btn">Assign</button>
-      <a href="#!" id="cancel" class="modal-close btn waves-red">Cancel</a>
+      <button id="cancel" class="modal-close btn waves-red">Cancel</button>
+      {{!-- <a href="#!" id="cancel" class="modal-close btn waves-red">Cancel</a> --}}
     </div>
 
   </div>

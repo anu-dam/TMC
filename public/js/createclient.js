@@ -34,7 +34,7 @@ $(document).ready(function() {
             status: clientData.status
         })
             .then(function() {
-                window.location.replace("/");
+                window.location.replace("/viewclient");
                 // If there's an error, log the error
             })
             .catch(function(err) {

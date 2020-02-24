@@ -39,7 +39,7 @@ $(document).ready(function() {
         console.log('userdata', userData);
         $.post("/api/signup", userData)
             .then(function(data) {
-                window.location.replace("/home");
+                window.location.replace("/viewusers");
                 // If there's an error, handle it by throwing up a bootstrap alert
             })
             .catch(handleLoginErr);
