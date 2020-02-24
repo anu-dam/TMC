@@ -35,14 +35,15 @@ module.exports = function(sequelize, DataTypes) {
     Task.associate = (models) => {
         Task.belongsToMany(models.Client, {
             through: 'ClientTask',
-            as: 'clients',
-            foreignKey: 'clientId'
+            as: 'tasks',
+            foreignKey: 'taskId'
         });
+
+
         Task.belongsTo(models.User, {
             foreignKey: {
                 allowNull: false
-            }
-            
+            }            
         });
     };
 

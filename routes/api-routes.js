@@ -13,9 +13,10 @@ module.exports = function (app) {
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
-  app.post("/api/signup", function (req, res) {    
+  app.post("/api/signup", function (req, res) {
+    // console.log(req);
     var userData;
-    if(req.body.ClientId ==''){
+    if (req.body.ClientId == '') {
       userData = {
         email: req.body.email,
         password: req.body.password,
@@ -24,7 +25,7 @@ module.exports = function (app) {
         status: req.body.status
       }
     }
-    else{
+    else {
       userData = {
         email: req.body.email,
         password: req.body.password,
@@ -69,16 +70,16 @@ module.exports = function (app) {
   });
 
   //******************************** */
-  app.post("/api/createclient", function (req, res) {    
+  app.post("/api/createclient", function (req, res) {
 
     var clientData = {
-        name: req.body.name, 
-        address: req.body.address,
-        email: req.body.email,
-        status: req.body.status
-      }
-   
-    
+      name: req.body.name,
+      address: req.body.address,
+      email: req.body.email,
+      status: req.body.status
+    }
+
+
     db.Client.create(clientData)
       .then(function () {
         res.redirect('/');
@@ -131,9 +132,9 @@ module.exports = function (app) {
   // id, title, description, completedBy, status, creator
   // Route for getting task list
   app.get("/api/viewtasks", function (req, res) {
-    db.Task.findAll({  
+    db.Task.findAll({
       attributes: ['id', 'title', 'description', 'completedBy', 'status'],
-      include: [{ model: db.User, attributes: ['id','name'] }]
+      include: [{ model: db.User, attributes: ['id', 'name'] }]
     })
       .then(function (dbUser) {
         res.json(dbUser);
@@ -141,32 +142,78 @@ module.exports = function (app) {
   });
 
 
- // Route for getting user list
+  // Route for getting user list
   app.get("/api/viewusers", function (req, res) {
-    db.User.findAll({  
-      attributes: ['id', 'name', 'type', 'status','email'], 
-      include: [{ model: db.Client, attributes: ['id','name'] }]
+    db.User.findAll({
+      attributes: ['id', 'name', 'type', 'status', 'email'],
+      include: [{ model: db.Client, attributes: ['id', 'name'] }]
     })
       .then(function (dbUser) {
-        
+
         res.json(dbUser);
       });
   });
   // Route for getting client list
   app.get("/api/viewclients", function (req, res) {
-    db.Client.findAll({  
-      attributes: ['id', 'name', 'email', 'address', 'status']})
+    db.Client.findAll({
+      attributes: ['id', 'name', 'email', 'address', 'status']
+    })
       .then(function (dbUser) {
         res.json(dbUser);
       });
   });
 
   app.get("/api/signup", function (req, res) {
-    db.User.findAll({  
-      attributes: ['id', 'name', 'email', 'address', 'status']})
+    
+    db.User.findAll({
+      attributes: ['id', 'name', 'email', 'address', 'status']
+    })
       .then(function (dbUser) {
         res.json(dbUser);
       });
   });
+
+
+  // route for getting all the active clients
+  app.get("/api/getclients", function (req, res) {
+    db.Client.findAll({
+      attributes: ['id', 'email', 'status'],
+      where: {
+        status: 'Active'
+      }
+    })
+      .then(function (dbUser) {
+        res.json(dbUser);
+      });
+  });
+
+  //******************************** */
+  app.post("/api/createclienttasks", function (req, res) {  
+    var data = req.body.data;    
+    console.log(data);
+    db.ClientTask.bulkCreate(JSON.parse(data),{ validate: true })
+      .then(function (res) {
+        console.log(res);
+        res.redirect('/');
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
+  });
+
+  // Route for getting clienttasks list
+  app.get("/api/viewclienttasks", function (req, res) {
+    db.ClientTask.findAll({
+      attributes: ['id', 'userID', 'clientID'],
+      include: [{ model: db.Client, attributes: ['id', 'name'] }],
+      include: [{ model: db.User, attributes: ['id', 'name'] }]
+    })
+      .then(function (dbUser) {
+        res.json(dbUser);
+      });
+  });
+  
+
 
 };
