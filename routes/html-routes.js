@@ -62,10 +62,6 @@ module.exports = function (app) {
 
   app.get("/assigntasks", function (req, res) {
     res.render("assigntask");
-  });
-  
-  app.get("/viewtasks", function (req, res) {
-    res.render("assigntask");
-  });
+  }); 
 
 };
