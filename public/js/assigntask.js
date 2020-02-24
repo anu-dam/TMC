@@ -1,5 +1,6 @@
 function getTasks(cb) {
     $.get("/api/viewtasks", function (data) {
+        console.log(data);
         return cb(data);
     })
 }
@@ -97,7 +98,7 @@ function updaTaskStatus(taskID) {
         data: {id : taskID }
     })
         .then(function (data) {
-            console.log(data);
+            location.reload();
         })
         .catch(handleLoginErr);
 }
