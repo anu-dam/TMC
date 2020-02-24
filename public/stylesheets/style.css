@@ -1,16 +1,36 @@
 h1 {
     text-align: center;
+    font-size: 80px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
+    letter-spacing: 20px;
 }
 
 body {
     
-    background-image: url("../img/task-management.jpg"); 
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 0px 260px;
+    /* background-image: url("../img/task-management.jpg");  */
+    /* background-repeat: no-repeat;
+    background-size: cover; */
+    /* background-position: 0px 260px; */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: lightgray;
+    
+}
 
+#head{
+    background-color: darkgray;
 }
 
 h2 {
     text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    letter-spacing: 3px;
+}
+
+#formdata, #status, #datepicker, .row-border {
+    font-size: 17px;
+    color: black;
+    font-weight: 550;
 }

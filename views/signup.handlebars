@@ -9,19 +9,19 @@
         <h2>User Creation Form</h2>
         <form class="signup">
           <div class="form-group">
-            <label for="exampleInputEmail1">Name</label>
+            <label for="Name" id="formdata">Name</label>
             <input type="name" class="form-control" id="name-input" placeholder="Name">
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="email-input" placeholder="Email">
+            <label for="Email" id="formdata">Email address</label>
+            <input type="text" class="form-control" id="email-input" placeholder="Email">
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
+            <label for="exampleInputPassword1" id="formdata">Password</label>
             <input type="password" class="form-control" id="password-input" placeholder="Password">
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">User Type</label>
+            <label for="exampleFormControlSelect1" id="formdata">User Type</label>
             <select class="form-control" id="usertype">
               <option value="administrator">Administrator</option>
               <option value="user">User</option>
@@ -29,14 +29,14 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Status</label>
+            <label for="exampleFormControlSelect1" id="formdata">Status</label>
             <select class="form-control" id="status">
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Client ID</label>
+            <label for="exampleFormControlSelect1" id="formdata">Client ID</label>
             <input class="form-control" type="clientid" placeholder="Client ID" id="clientid">
           </div>
           <div style="display: none" id="alert" class="alert alert-danger" role="alert">
@@ -49,4 +49,4 @@
         <!-- <p>Or log in <a href="/login">here</a></p> -->
       </div>
     </div>
-  </div>
+    </div>
