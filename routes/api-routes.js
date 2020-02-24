@@ -82,7 +82,7 @@ module.exports = function (app) {
 
     db.Client.create(clientData)
       .then(function () {
-        res.redirect('/');
+        res.redirect('/viewclient');
       })
       .catch(function (err) {
         res.status(401).json(err);
@@ -101,6 +101,34 @@ module.exports = function (app) {
   //       res.json(dbUser);
   //     });
   // });
+
+
+  //******************************** */
+  app.post("/api/createtask", function (req, res) {    
+
+    var taskData = {
+        title: req.body.title, 
+        description: req.body.description,
+        status: req.body.status,
+        completedBy: req.body.date,
+        // ClientId: req.body.ClientId,
+        UserId: req.body.UserId
+      }
+    
+      console.log(taskData);
+
+    db.Task.create(taskData)
+      .then(function () {
+        console.log("done");
+        res.redirect('/viewtasks');
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
+  });
+
+  //*************************************** */
 
 
   // id, title, description, completedBy, status, creator
