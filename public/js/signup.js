@@ -10,6 +10,18 @@ $(document).ready(function() {
 
     var userData;
 
+    $.ajax({
+        url : "/api/viewclients",
+        type : "GET",
+        success : function(data){
+
+            var len = data.length;
+
+            console.log(data);
+            
+        }
+    });
+
 
     // When the signup button is clicked, we validate the email and password are not blank
     signUpForm.on("submit", function(event) {
