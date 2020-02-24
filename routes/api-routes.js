@@ -103,6 +103,32 @@ module.exports = function (app) {
   // });
 
 
+  //******************************** */
+  app.post("/api/createtask", function (req, res) {    
+
+    var taskData = {
+        title: req.body.title, 
+        description: req.body.description,
+        status: req.body.status,
+        completedBy: req.body.date
+      }
+    
+      console.log(taskData);
+
+    db.Task.create(taskData)
+      .then(function () {
+        console.log("done");
+        res.redirect('/viewtasks');
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
+  });
+
+  //*************************************** */
+
+
   // id, title, description, completedBy, status, creator
   // Route for getting task list
   app.get("/api/viewtasks", function (req, res) {
