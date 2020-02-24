@@ -1,6 +1,5 @@
 function getClientTasks(cb) {
     $.get("/api/viewclienttasks", function (data) {
-        console.log(data);
         return cb(data);
     })
 }
@@ -16,21 +15,21 @@ function getClientTasks(cb) {
 
 function updateHeaders(data) {
     console.log(data);
-    $("#clientname").attr('data-clintid', data[0].id);
-    $("#clientname").text(data[0].name);
-    $("#clientaddress").text(data[0].address);
+    $("#clientname").attr('data-clintid', data[0].clients_id);
+    $("#clientname").text(data[0].clients_name);
+    $("#clientaddress").text(data[0].clients_address);
 }
 
 function initialiseTable(data) {
     var usertable = $("#usertable");
     usertable.DataTable({
         data,
-        rowId: 'id',
+        rowId: 'clienttasks_id',
         "columns": [
-            { "data": "tasks.title" },
-            { "data": "tasks.description" },
-            { "data": "tasks.completedBy" },
-            { "data": "tasks.status" }
+            { "data": "tasks_title" },
+            { "data": "tasks_description" },
+            { "data": "tasks_completedBy" },
+            { "data": "tasks_status" }
         ]
     });
     updateHeaders(data);

@@ -240,10 +240,10 @@ module.exports = function (app) {
 
   // Route for getting clienttasks list
   app.get("/api/viewclienttasks", function (req, res) {
-    db.sequelize.query(" select `clienttasks`.`id` as `clienttasks.id`, `clienttasks`.`status` as `clienttasks.status`, " +
-      "`clients`.`id` AS `clients.id`, `clients`.`name` AS `clients.name`, `clients`.`address` AS `clients.address`, " +
-      "`tasks`.`id` AS`tasks.id`, `tasks`.`title` AS`tasks.title`, `tasks`.`description` AS`tasks.description`, " +
-      "`tasks`.`status` AS`tasks.status`, `tasks`.`UserId` AS`tasks.UserId`" +
+    db.sequelize.query(" select `clienttasks`.`id` as `clienttasks_id`, `clienttasks`.`status` as `clienttasks_status`, " +
+      "`clients`.`id` AS `clients_id`, `clients`.`name` AS `clients_name`, `clients`.`address` AS `clients_address`, " +
+      "`tasks`.`id` AS`tasks_id`, `tasks`.`title` AS`tasks_title`, `tasks`.`description` AS`tasks_description`, " +
+      "`tasks`.`status` AS`tasks_status`, `tasks`.`UserId` AS`tasks_UserId` , `tasks`.`completedBy` AS`tasks_completedBy` " +
       "from clienttasks  inner join " +
       "clients on clienttasks.clientId = clients.id " +
       "inner join tasks on clienttasks.taskId = tasks.id ", { type: Sequelize.QueryTypes.SELECT })
