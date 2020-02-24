@@ -11,6 +11,7 @@ function initialiseTable(data) {
     usertable.DataTable({
         data,
         rowId: 'id',
+        dom: 'lBfrtip',
         "columns": [
             { "data": "name" },
             { "data": "email" },
