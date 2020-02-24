@@ -1,10 +1,9 @@
-
-
 function getTasks(cb) {
     $.get("/api/viewtasks", function (data) {
         return cb(data);
     })
 }
+
 
 function initialiseTable(data) {
     var taskTable = $("#tasktable");
@@ -31,21 +30,21 @@ $(document).ready(function () {
     var table = $("#tasktable").DataTable();
     var selectedRow;
     $('#tasktable tbody').on('click', 'tr', function () {
-        console.log(table.row(this).data());
+        // console.log(table.row(this).data());
         selectedRow = table.row(this).data();
-
-        $("#assign").attr('data-id',selectedRow.id);
-        $("#assign").attr('data-status',selectedRow.status);
+        $("#assign").attr('data-id', selectedRow.id);
+        $("#assign").attr('data-status', selectedRow.status);
         $("#tasktitle").text(selectedRow.title);
         $("#taskdetail").text(selectedRow.description);
         $("#taskcompletedby").text(selectedRow.completedBy);
-        $("#tasstatus").text(selectedRow.status);
+        $("#taskstatus").text(selectedRow.status);
         $("#taskowner").text(selectedRow.User.name);
-        // if ($("#tasstatus").text()==="") {
-        //     bt.disabled = false;
-        // }
-        // openModel();
-
+        if ($("#taskstatus").text() != "Active") {
+            $("#assign").hide();
+        } else {
+            $("#assign").show();
+        }
+        openModel();
     });
 });
 
@@ -55,18 +54,53 @@ function openModel() {
 };
 
 
+// get current active client list
+function getActiveClients(taskID) {
+    $.get("/api/getclients", function (data) {
+        console.log(data);
+        createClientTasks(taskID, data);
+    })
+}
+
+function createClientTasks(taskID, clientList) {
+    var clientTaskList = [];
+    for (var i = 0;  i < clientList.length; i++){
+        // console.log("clientId"+clientList[i].id);
+        // console.log("taskID"+taskID);
+        var clientTask = {
+            clientId:parseInt(clientList[i].id),
+            taskId:parseInt(taskID),
+            status:"Assigned"
+        }
+        clientTaskList.push(clientTask);
+    }
+     console.log("created clientTaskList");    
+    $.post("/api/createclienttasks",{data: JSON.stringify(clientTaskList)})
+        .then(function(data) {
+            // window.location.replace("/viewclienttasks");
+            // If there's an error, handle it by throwing up a bootstrap alert
+            console.log(data);
+        })
+        .catch(handleLoginErr);
+}
+
+//assign to client function
+
+$(document).on("click", "#assign", async function () {
+    event.preventDefault();
+    var taskID = $(this).attr("data-id");    
+    // console.log(taskID);
+    let data;
+     getActiveClients(taskID);     
+});
+
+//for showing error
+function handleLoginErr(err) {
+    $("#alert .msg").text(err.responseJSON);
+    $("#alert").fadeIn(500);
+}
 
 // execute immidiately
 getTasks(function (allTasks) {
     initialiseTable(allTasks);
 })
-
-//<a href="#!" id="assign" class="waves-effect waves-light btn">Assign</a>
-//<a href="#!" id="cancel" class="modal-close btn waves-red">Cancel</a> 
-
-$(document).on("click", "#assign", function(){
-    var taskID = $("#assign").data().id;
-    var taskStatus = $("#assign").data().status;
-    console.log(taskID, taskStatus);
-});
-
