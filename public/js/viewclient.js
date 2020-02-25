@@ -26,8 +26,13 @@ function initialiseTable(data) {
 }
 
 // execute immidiately
-getClients(function (allTasks) {
-    initialiseTable(allTasks);
+
+
+
+isAdmin(function () {
+    getClients(function (allTasks) {
+        initialiseTable(allTasks);
+    })
 })
 
 
