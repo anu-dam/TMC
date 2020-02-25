@@ -4,55 +4,51 @@ function getClientTasks(cb) {
     })
 }
 
-// db.ClientTask.findAll({
-//     attributes: ['id', 'taskId', 'clientId', 'status'],
-//     include: [{ model: db.Client, attributes: ['id', 'name','address'] }],
-//     include: [{ model: db.Task, attributes: ['id','title', 'description','completedBy'] }]
-//   })
 
-//   <h2 id="clientname"></h2>
-//     <h4 id="clientaddress"></h4>
 
-function updateHeaders(data) {
-    console.log(data);
+function updateHeaders(data) {    
     $("#clientname").attr('data-clintid', data[0].clients_id);
     $("#clientname").text(data[0].clients_name);
     $("#clientaddress").text(data[0].clients_address);
 }
 
-function initialiseTable(data) {
-    var usertable = $("#clienttasktable");
+function initialiseTables(data) {
+    updateHeaders(data);
+    var usertable = $("#clienttaskstable");
     usertable.DataTable({
+        dom: 'Bfrtip',
         data,
         rowId: 'clienttasks_id',
         "columns": [
             { "data": "tasks_title" },
             { "data": "tasks_description" },
             { "data": "tasks_completedBy" },
-            { "data": "tasks_status" }
+            { "data": "clienttasks_status" }
         ]
-    });
-    updateHeaders(data);
+    });      
 }
 
 
 
 // When the dom is loaded
 $(document).ready(function () {
+    console.log("started loading data");
     $('.modal').modal({
         dismissible: false, // Modal cannot be closed by clicking anywhere outside
     });
-    var table = $("#clienttasktable").DataTable();
+    
+    
     var selectedRow;
-    $('#clienttasktable tbody').on('click', 'tr', function () {
+    $('#clienttaskstable tbody').on('click', 'tr', function () {
+        var table = $("#clienttaskstable").DataTable();
         // console.log(table.row(this).data());
         selectedRow = table.row(this).data();
         $("#complete").attr('data-id', selectedRow.clienttasks_id);
-        $("#complete").attr('data-status', selectedRow.tasks_status);
+        $("#complete").attr('data-status', selectedRow.clienttasks_status);
         $("#tasktitle").text(selectedRow.tasks_title);
         $("#taskdetail").text(selectedRow.tasks_description);
         $("#taskcompletedby").text(selectedRow.tasks_completedBy);
-        $("#taskstatus").text(selectedRow.tasks_status);
+        $("#taskstatus").text(selectedRow.clienttasks_status);
         if ($("#taskstatus").text() != "Assigned") {
             $("#complete").hide();
         } else {
@@ -72,7 +68,19 @@ function closeModel() {
     instance.close();
 };
 
+//update task status by user
+function updateClientTaskStatus(taskID){
+    console.log(taskID);
+};
+
+// assign to client function
+$(document).on("click", "#complete", function () {
+    event.preventDefault();
+    var taskID = $(this).attr("data-id");
+    // console.log(taskID);    
+    updateClientTaskStatus(taskID);
+});
 
 getClientTasks(function (allClientTasks) {
-    initialiseTable(allClientTasks);
+    initialiseTables(allClientTasks);
 })
