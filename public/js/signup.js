@@ -7,20 +7,21 @@ $(document).ready(function() {
     var usertypeInput = $("#usertype");
     var statusInput = $("#status");
     var clientidInput = $("input#clientid");
+    var message = $(".msg");
 
     var userData;
 
-    $.ajax({
-        url : "/api/viewclients",
-        type : "GET",
-        success : function(data){
+    // $.ajax({
+    //     url : "/api/viewclients",
+    //     type : "GET",
+    //     success : function(data){
 
-            var len = data.length;
+    //         var len = data.length;
 
-            console.log(data);
-            
-        }
-    });
+    //         console.log(data);
+
+    //     }
+    // });
 
 
     // When the signup button is clicked, we validate the email and password are not blank
@@ -36,7 +37,8 @@ $(document).ready(function() {
         };
 
         console.log('userdata', userData);
-        if (!userData.email || !userData.password || !userData.type || !userData.status) {
+        if (!userData.email || !userData.password || !userData.type || !userData.name|| !userData.status) {
+            
             console.log('complete all fields');
             return;
         }
@@ -59,7 +61,9 @@ $(document).ready(function() {
     }
 
     function handleLoginErr(err) {
+        
         $("#alert .msg").text(err.responseJSON);
         $("#alert").fadeIn(500);
     }
+
 });
