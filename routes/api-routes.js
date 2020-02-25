@@ -196,7 +196,7 @@ module.exports = function (app) {
     console.log(data);
     db.ClientTask.bulkCreate(JSON.parse(data), { validate: true })
       .then(function () {
-        res.status(200);
+        res.redirect('/assigntask');
       })
       .catch(function (err) {
         console.log(err);
