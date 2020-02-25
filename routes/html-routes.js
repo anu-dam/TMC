@@ -60,4 +60,7 @@ module.exports = function (app) {
     res.render("assigntask");
   }); 
 
+  app.get("/index", function (req, res) {
+    res.render("index");
+  }); 
 };

@@ -124,6 +124,11 @@ function handleLoginErr(err) {
 }
 
 // execute immidiately
-getTasks(function (allTasks) {
-    initialiseTable(allTasks);
+
+
+
+isAdmin(function () {
+    getTasks(function (allTasks) {
+        initialiseTable(allTasks);
+    })
 })

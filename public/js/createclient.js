@@ -6,7 +6,14 @@ $(document).ready(function() {
     var address = $("#address");
     var email = $("#email");
     var status = $("#status");
-
+    
+    $(".fa-map").on("click", function(event){
+        event.preventDefault();
+        console.log("redirect")
+        window.location.replace("index");
+        
+    }
+    );
     // When the form is submitted, we validate there's an email and password entered
     loginForm.on("click", function(event) {
 
@@ -44,4 +51,4 @@ $(document).ready(function() {
 });
 
 
-
+isAdmin(function () {});
