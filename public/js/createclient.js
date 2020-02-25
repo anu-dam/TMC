@@ -51,4 +51,4 @@ $(document).ready(function() {
 });
 
 
-
+isAdmin(function () {});

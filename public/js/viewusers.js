@@ -22,10 +22,11 @@ function initialiseTable(data) {
     });
 }
 
-getUsers(function (allUsers) {
-    initialiseTable(allUsers);
+isAdmin(function () {
+    getUsers(function (allUsers) {
+        initialiseTable(allUsers);
+    })
 })
-
 
 // $(document).ready(function () {
 //     var usertable = $("#usertable");

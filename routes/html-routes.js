@@ -56,7 +56,7 @@ module.exports = function (app) {
   });
 
   
-  app.get("/assigntasks", function (req, res) {
+  app.get("/assigntask", function (req, res) {
     res.render("assigntask");
   }); 
 

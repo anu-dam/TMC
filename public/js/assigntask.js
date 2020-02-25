@@ -1,5 +1,5 @@
 function getTasks(cb) {
-    $.get("/api/viewtasks", function (data) {
+    $.get("/api/gettasks", function (data) {
         console.log(data);
         return cb(data);
     })
@@ -62,7 +62,7 @@ function closeModel() {
 
 
 // get current active client list
-function getActiveClient(taskID) {
+function getClients(taskID) {
     $.get("/api/getclients", function (data) {
         console.log(data);
         createClientTaskList(taskID, data);
@@ -114,7 +114,7 @@ $(document).on("click", "#assign", function () {
     var taskID = $(this).attr("data-id");
     // console.log(taskID);
     let data;
-    getActiveClient(taskID);
+    getClients(taskID);
 });
 
 //for showing error
@@ -124,6 +124,11 @@ function handleLoginErr(err) {
 }
 
 // execute immidiately
-getTasks(function (allTasks) {
-    initialiseTable(allTasks);
+
+
+
+isAdmin(function () {
+    getTasks(function (allTasks) {
+        initialiseTable(allTasks);
+    })
 })

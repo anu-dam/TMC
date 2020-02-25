@@ -6,7 +6,7 @@ function getClientTasks(cb) {
 
 
 
-function updateHeaders(data) {    
+function updateHeaders(data) {
     $("#clientname").attr('data-clintid', data[0].clients_id);
     $("#clientname").text(data[0].clients_name);
     $("#clientaddress").text(data[0].clients_address);
@@ -25,7 +25,7 @@ function initialiseTables(data) {
             { "data": "tasks_completedBy" },
             { "data": "clienttasks_status" }
         ]
-    });      
+    });
 }
 
 
@@ -36,8 +36,8 @@ $(document).ready(function () {
     $('.modal').modal({
         dismissible: false, // Modal cannot be closed by clicking anywhere outside
     });
-    
-    
+
+
     var selectedRow;
     $('#clienttaskstable tbody').on('click', 'tr', function () {
         var table = $("#clienttaskstable").DataTable();
@@ -69,7 +69,7 @@ function closeModel() {
 };
 
 //update task status by user
-function updateClientTaskStatus(taskID){
+function updateClientTaskStatus(taskID) {
     console.log(taskID);
 };
 
@@ -81,6 +81,10 @@ $(document).on("click", "#complete", function () {
     updateClientTaskStatus(taskID);
 });
 
+
+
+
+
 getClientTasks(function (allClientTasks) {
     initialiseTables(allClientTasks);
-})
+})    
