@@ -1,0 +1,45 @@
+<!-- Display geolocation data -->
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCb_7UOxCHKG_vRJxFsMQ80U_ZVmilUn1Q&callback=initMap"
+  async defer></script>
+<script src="/js/script.js"></script>
+{{> admin }}
+
+<div class="pac-card" id="pac-card">
+  <div>
+    <div id="title">
+      School search
+    </div>
+    <!-- <div id="type-selector" class="pac-controls">
+          <input type="radio" name="type" id="changetype-all" checked="checked">
+          <label for="changetype-all">All</label>
+        </div> -->
+  </div>
+  <div id="pac-container">
+    <input id="searchInput" class="controls" type="text" placeholder="Enter a location">
+  </div>
+</div>
+<div id="map"></div>
+<div id="infowindow-content">
+  <img src="" width="16" height="16" id="place-icon">
+  <span id="place-name" class="title"></span><br>
+  <span id="place-address"></span>
+</div>
+
+<div id="container">
+  <div class="row">
+    <div class="col-md-6">
+      <ul class="geo-data">
+        <li>Full Address: <span id="location"></span></li>
+        <li>Postal Code: <span id="postal_code"></span></li>
+        <li>Country: <span id="country"></span></li>
+        <li>Latitude: <span id="lat"></span></li>
+        <li>Longitude: <span id="lon"></span></li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
