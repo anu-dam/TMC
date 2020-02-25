@@ -21,7 +21,7 @@ function updateHeaders(data) {
 }
 
 function initialiseTable(data) {
-    var usertable = $("#usertable");
+    var usertable = $("#clienttasktable");
     usertable.DataTable({
         data,
         rowId: 'clienttasks_id',
@@ -34,6 +34,44 @@ function initialiseTable(data) {
     });
     updateHeaders(data);
 }
+
+
+
+// When the dom is loaded
+$(document).ready(function () {
+    $('.modal').modal({
+        dismissible: false, // Modal cannot be closed by clicking anywhere outside
+    });
+    var table = $("#clienttasktable").DataTable();
+    var selectedRow;
+    $('#clienttasktable tbody').on('click', 'tr', function () {
+        // console.log(table.row(this).data());
+        selectedRow = table.row(this).data();
+        $("#complete").attr('data-id', selectedRow.clienttasks_id);
+        $("#complete").attr('data-status', selectedRow.tasks_status);
+        $("#tasktitle").text(selectedRow.tasks_title);
+        $("#taskdetail").text(selectedRow.tasks_description);
+        $("#taskcompletedby").text(selectedRow.tasks_completedBy);
+        $("#taskstatus").text(selectedRow.tasks_status);
+        if ($("#taskstatus").text() != "Assigned") {
+            $("#complete").hide();
+        } else {
+            $("#complete").show();
+        }
+        openModel();
+    });
+});
+
+function openModel() {
+    var instance = M.Modal.getInstance($('.modal'));
+    instance.open();
+};
+
+function closeModel() {
+    var instance = M.Modal.getInstance($('.modal'));
+    instance.close();
+};
+
 
 getClientTasks(function (allClientTasks) {
     initialiseTable(allClientTasks);

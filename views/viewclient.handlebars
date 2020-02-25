@@ -2,17 +2,29 @@
 </head>
 
 <body>
-{{> admin }}
+  {{> admin }}
   <div class="container">
     <h2>Clients Table</h2>
-    <p id="formdata">List of clients currently registered in the system</p>
+    <p>List of clients currently registered in the system</p>
     <table id="clienttable" class="row-border" style="width:100%">
       <thead>
         <tr>
-          <th id="formdata">Name</th>
-          <th id="formdata">Email</th>
-          <th id="formdata">Address</th>
-          <th id="formdata">Status</th>
+          <th class="formdata">Name</th>
+          <th class="formdata">Email</th>
+          <th class="formdata">Address</th>
+          <th class="formdata">Status</th>
         </tr>
       </thead>
+      <tbody>
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <th class="formdata">Name</th>
+          <th class="formdata">Email</th>
+          <th class="formdata">Address</th>
+          <th class="formdata">Status</th>
+        </tr>
+      </tfoot>
+    </table>
   </div>
