@@ -1,20 +1,19 @@
 -- drop database tmc;
 -- create database tmc;
 use tmc;
+
+
+-- update tasks set status = "Active"
+
+-- UPDATE users SET type = 'client' WHERE users.id = 3
+
 select * from clients
 select * from users
-
-update tasks set 
-
 select * from tasks
 select * from clienttasks
 
 truncate table clienttasks
 
-Active
-
-# id, title, description, completedBy, status, createdAt, updatedAt, UserId
-'2', 'Second Task', '', '2020-02-25', 'Active', '2020-02-24 10:25:36', '2020-02-24 10:25:36', '1'
 
 INSERT INTO `tmc`.`clients`
 (

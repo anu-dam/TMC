@@ -16,7 +16,7 @@ $(document).ready(function() {
         var taskData = {
             title: title.val().trim(),
             description: description.val().trim(),
-            status: ("created"),
+            status: ("Active"),
             date: date.val(),
             // ClientId: ClientId.val(),
             UserId: (2)

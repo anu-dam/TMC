@@ -28,9 +28,10 @@ $(document).ready(function () {
     $('.modal').modal({
         dismissible: false, // Modal cannot be closed by clicking anywhere outside
     });
-    var table = $("#tasktable").DataTable();
+    
     var selectedRow;
     $('#tasktable tbody').on('click', 'tr', function () {
+        var table = $("#tasktable").DataTable();
         // console.log(table.row(this).data());
         selectedRow = table.row(this).data();
         $("#assign").attr('data-id', selectedRow.id);
@@ -61,14 +62,14 @@ function closeModel() {
 
 
 // get current active client list
-function getActiveClients(taskID) {
+function getActiveClient(taskID) {
     $.get("/api/getclients", function (data) {
         console.log(data);
-        createClientTasks(taskID, data);
+        createClientTaskList(taskID, data);
     })
 }
 
-function createClientTasks(taskID, clientList) {
+function createClientTaskList(taskID, clientList) {
     var clientTaskList = [];
     for (var i = 0; i < clientList.length; i++) {
         // console.log("clientId"+clientList[i].id);
@@ -81,6 +82,8 @@ function createClientTasks(taskID, clientList) {
         clientTaskList.push(clientTask);
     }
     console.log("created clientTaskList");
+
+    //populate database with clitnt tasks
     $.post("/api/createclienttasks", { data: JSON.stringify(clientTaskList) })
         .then(function (data) {
             closeModel();
@@ -92,12 +95,14 @@ function createClientTasks(taskID, clientList) {
 
 // update the current task status to "Assigned"
 function updaTaskStatus(taskID) {
+    console.log("function updaTaskStatus(taskID) started");
     // Send the PUT request.
     $.ajax("/api/updataskstatus", {
         type: "PUT",
         data: {id : taskID }
     })
         .then(function (data) {
+            console.log(data);
             location.reload();
         })
         .catch(handleLoginErr);
@@ -109,7 +114,7 @@ $(document).on("click", "#assign", function () {
     var taskID = $(this).attr("data-id");
     // console.log(taskID);
     let data;
-    getActiveClients(taskID);
+    getActiveClient(taskID);
 });
 
 //for showing error
