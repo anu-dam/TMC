@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
     Client.associate = (models) => {
         Client.belongsToMany(models.Task, {
             through: 'ClientTask',
-            as: 'clients',
+            as: 'tasks',
             foreignKey: 'clientId'
         });
     };

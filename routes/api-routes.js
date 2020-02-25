@@ -1,6 +1,7 @@
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
+var Sequelize = require("sequelize");
 
 module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -104,23 +105,23 @@ module.exports = function (app) {
 
 
   //******************************** */
-  app.post("/api/createtask", function (req, res) {    
+  app.post("/api/createtask", function (req, res) {
 
     var taskData = {
-        title: req.body.title, 
-        description: req.body.description,
-        status: req.body.status,
-        completedBy: req.body.date,
-        // ClientId: req.body.ClientId,
-        UserId: req.body.UserId
-      }
-    
-      console.log(taskData);
+      title: req.body.title,
+      description: req.body.description,
+      status: req.body.status,
+      completedBy: req.body.date,
+      // ClientId: req.body.ClientId,
+      UserId: req.body.UserId
+    }
+
+    console.log(taskData);
 
     db.Task.create(taskData)
       .then(function () {
         console.log("done");
-        res.redirect('/viewtasks');
+        res.redirect('/assigntask');
       })
       .catch(function (err) {
         console.log(err);
@@ -166,7 +167,7 @@ module.exports = function (app) {
   });
 
   app.get("/api/signup", function (req, res) {
-    
+
     db.User.findAll({
       attributes: ['id', 'name', 'email', 'address', 'status']
     })
@@ -190,13 +191,12 @@ module.exports = function (app) {
   });
 
   //******************************** */
-  app.post("/api/createclienttasks", function (req, res) {  
-    var data = req.body.data;    
+  app.post("/api/createclienttasks", function (req, res) {
+    var data = req.body.data;
     console.log(data);
-    db.ClientTask.bulkCreate(JSON.parse(data),{ validate: true })
-      .then(function (res) {
-        console.log(res);
-        res.redirect('/');
+    db.ClientTask.bulkCreate(JSON.parse(data), { validate: true })
+      .then(function () {
+        res.status(200);
       })
       .catch(function (err) {
         console.log(err);
@@ -204,18 +204,58 @@ module.exports = function (app) {
       });
   });
 
-  // Route for getting clienttasks list
-  app.get("/api/viewclienttasks", function (req, res) {
-    db.ClientTask.findAll({
-      attributes: ['id', 'userID', 'clientID'],
-      include: [{ model: db.Client, attributes: ['id', 'name'] }],
-      include: [{ model: db.User, attributes: ['id', 'name'] }]
-    })
-      .then(function (dbUser) {
-        res.json(dbUser);
+
+  app.put("/api/updataskstatus", function (req, res) {
+    var data = req.body;
+    console.log(data);
+    db.Task.update(
+      { status: 'Assigned' },
+      { where: { id: data.id } }
+    )
+      .then(function () {
+        res.redirect('/assigntask');
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.status(401).json(err);
       });
   });
-  
+
+
+
+
+  // db.ClientTask.findAll({
+  //   attributes: ['id', 'taskId', 'clientId', 'status'],
+  //   include: [{ model: db.Task, attributes: ['id','title', 'description','completedBy']}] ,
+  //   include: [{ model: db.Client, attributes: ['id', 'name','address'] }]           
+  // })
+
+  // db.Client.findAll({
+  //   as: 'clients',
+  //   include: [{
+  //     model: db.Task,
+  //     as: 'tasks'
+  //   }]
+  // })
+
+  // Route for getting clienttasks list
+  app.get("/api/viewclienttasks", function (req, res) {
+    db.sequelize.query(" select `clienttasks`.`id` as `clienttasks_id`, `clienttasks`.`status` as `clienttasks_status`, " +
+      "`clients`.`id` AS `clients_id`, `clients`.`name` AS `clients_name`, `clients`.`address` AS `clients_address`, " +
+      "`tasks`.`id` AS`tasks_id`, `tasks`.`title` AS`tasks_title`, `tasks`.`description` AS`tasks_description`, " +
+      "`tasks`.`status` AS`tasks_status`, `tasks`.`UserId` AS`tasks_UserId` , `tasks`.`completedBy` AS`tasks_completedBy` " +
+      "from clienttasks  inner join " +
+      "clients on clienttasks.clientId = clients.id " +
+      "inner join tasks on clienttasks.taskId = tasks.id ", { type: Sequelize.QueryTypes.SELECT })
+      .then(function (data) {
+        res.json(data);
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
+  });
+
 
 
 };

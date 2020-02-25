@@ -1,5 +1,6 @@
 function getTasks(cb) {
     $.get("/api/viewtasks", function (data) {
+        console.log(data);
         return cb(data);
     })
 }
@@ -53,6 +54,11 @@ function openModel() {
     instance.open();
 };
 
+function closeModel() {
+    var instance = M.Modal.getInstance($('.modal'));
+    instance.close();
+};
+
 
 // get current active client list
 function getActiveClients(taskID) {
@@ -64,34 +70,46 @@ function getActiveClients(taskID) {
 
 function createClientTasks(taskID, clientList) {
     var clientTaskList = [];
-    for (var i = 0;  i < clientList.length; i++){
+    for (var i = 0; i < clientList.length; i++) {
         // console.log("clientId"+clientList[i].id);
         // console.log("taskID"+taskID);
         var clientTask = {
-            clientId:parseInt(clientList[i].id),
-            taskId:parseInt(taskID),
-            status:"Assigned"
+            clientId: parseInt(clientList[i].id),
+            taskId: parseInt(taskID),
+            status: "Assigned"
         }
         clientTaskList.push(clientTask);
     }
-     console.log("created clientTaskList");    
-    $.post("/api/createclienttasks",{data: JSON.stringify(clientTaskList)})
-        .then(function(data) {
-            // window.location.replace("/viewclienttasks");
-            // If there's an error, handle it by throwing up a bootstrap alert
-            console.log(data);
+    console.log("created clientTaskList");
+    $.post("/api/createclienttasks", { data: JSON.stringify(clientTaskList) })
+        .then(function (data) {
+            closeModel();
+            console.log("closeModel(); completed");
+            updaTaskStatus(taskID);
+        })
+        .catch(handleLoginErr);
+}
+
+// update the current task status to "Assigned"
+function updaTaskStatus(taskID) {
+    // Send the PUT request.
+    $.ajax("/api/updataskstatus", {
+        type: "PUT",
+        data: {id : taskID }
+    })
+        .then(function (data) {
+            location.reload();
         })
         .catch(handleLoginErr);
 }
 
 //assign to client function
-
-$(document).on("click", "#assign", async function () {
+$(document).on("click", "#assign", function () {
     event.preventDefault();
-    var taskID = $(this).attr("data-id");    
+    var taskID = $(this).attr("data-id");
     // console.log(taskID);
     let data;
-     getActiveClients(taskID);     
+    getActiveClients(taskID);
 });
 
 //for showing error
