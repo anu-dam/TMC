@@ -22,7 +22,7 @@ $(document).ready(function() {
             name: name.val().trim(),
             email: email.val().trim(),
             address: address.val().trim(),
-            status: status.val()
+            status: "Active"
 
         };
 
