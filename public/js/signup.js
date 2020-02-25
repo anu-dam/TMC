@@ -32,7 +32,7 @@ $(document).ready(function() {
             password: passwordInput.val().trim(),
             name: nameInput.val().trim(),
             type: usertypeInput.val(),
-            status: "Active",
+            status: "active",
             ClientId: clientidInput.val().trim()
         };
 
