@@ -42,7 +42,7 @@ module.exports = function (app) {
         res.redirect(307, "/api/login");
       })
       .catch(function (err) {
-        res.status(400).json(err);
+        res.sendStatus(400).json(err);
       });
   });
 
@@ -86,7 +86,7 @@ module.exports = function (app) {
         res.redirect('/viewclient');
       })
       .catch(function (err) {
-        res.status(401).json(err);
+        res.sendStatus(401).json(err);
       });
   });
 
@@ -134,7 +134,7 @@ module.exports = function (app) {
 
   // id, title, description, completedBy, status, creator
   // Route for getting task list
-  app.get("/api/viewtasks", function (req, res) {
+  app.get("/api/gettasks", function (req, res) {
     db.Task.findAll({
       attributes: ['id', 'title', 'description', 'completedBy', 'status'],
       include: [{ model: db.User, attributes: ['id', 'name'] }]
@@ -193,14 +193,14 @@ module.exports = function (app) {
   //******************************** */
   app.post("/api/createclienttasks", function (req, res) {
     var data = req.body.data;
-    console.log(data);
+    // console.log(data);
     db.ClientTask.bulkCreate(JSON.parse(data), { validate: true })
       .then(function () {
-        res.redirect('/assigntask');
+        res.sendStatus(200);
       })
       .catch(function (err) {
         console.log(err);
-        res.status(401).json(err);
+        res.sendStatus(401).json(err);
       });
   });
 
@@ -213,30 +213,13 @@ module.exports = function (app) {
       { where: { id: data.id } }
     )
       .then(function () {
-        res.redirect('/assigntask');
+        res.render('assigntask');
       })
       .catch(function (err) {
         console.log(err);
-        res.status(401).json(err);
+        res.sendStatus(401).json(err);
       });
   });
-
-
-
-
-  // db.ClientTask.findAll({
-  //   attributes: ['id', 'taskId', 'clientId', 'status'],
-  //   include: [{ model: db.Task, attributes: ['id','title', 'description','completedBy']}] ,
-  //   include: [{ model: db.Client, attributes: ['id', 'name','address'] }]           
-  // })
-
-  // db.Client.findAll({
-  //   as: 'clients',
-  //   include: [{
-  //     model: db.Task,
-  //     as: 'tasks'
-  //   }]
-  // })
 
   // Route for getting clienttasks list
   app.get("/api/viewclienttasks", function (req, res) {
@@ -252,10 +235,8 @@ module.exports = function (app) {
       })
       .catch(function (err) {
         console.log(err);
-        res.status(401).json(err);
+        res.sendStatus(401).json(err);
       });
   });
-
-
 
 };
