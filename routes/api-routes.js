@@ -3,6 +3,8 @@ var db = require("../models");
 var passport = require("../config/passport");
 var Sequelize = require("sequelize");
 
+var { isAdmin, isClientUser, isUser } = require("../config/middleware/isAuthenticated")
+
 module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
@@ -14,7 +16,7 @@ module.exports = function (app) {
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
-  app.post("/api/signup", function (req, res) {
+  app.post("/api/signup",isAdmin, function (req, res) {
     // console.log(req);
     var userData;
     if (req.body.ClientId == '') {
@@ -53,7 +55,7 @@ module.exports = function (app) {
   });
 
   // Route for getting some data about our user to be used client side
-  app.get("/api/users", function (req, res) {
+  app.get("/api/users", isAdmin,function (req, res) {
     // if(req.user.type == 'client') return 403;
     // if(req.user == 1) return db.User.findAll();
     // return return db.User.findAll({});
@@ -71,7 +73,7 @@ module.exports = function (app) {
   });
 
   //******************************** */
-  app.post("/api/createclient", function (req, res) {
+  app.post("/api/createclient",isAdmin, function (req, res) {
 
     var clientData = {
       name: req.body.name,
@@ -105,7 +107,7 @@ module.exports = function (app) {
 
 
   //******************************** */
-  app.post("/api/createtask", function (req, res) {
+  app.post("/api/createtask",isAdmin, function (req, res) {
 
     var taskData = {
       title: req.body.title,
@@ -134,7 +136,7 @@ module.exports = function (app) {
 
   // id, title, description, completedBy, status, creator
   // Route for getting task list
-  app.get("/api/gettasks", function (req, res) {
+  app.get("/api/gettasks",isAdmin, function (req, res) {
     db.Task.findAll({
       attributes: ['id', 'title', 'description', 'completedBy', 'status'],
       include: [{ model: db.User, attributes: ['id', 'name'] }]
@@ -146,7 +148,7 @@ module.exports = function (app) {
 
 
   // Route for getting user list
-  app.get("/api/viewusers", function (req, res) {
+  app.get("/api/viewusers",isAdmin, function (req, res) {
     db.User.findAll({
       attributes: ['id', 'name', 'type', 'status', 'email'],
       include: [{ model: db.Client, attributes: ['id', 'name'] }]
@@ -157,7 +159,7 @@ module.exports = function (app) {
       });
   });
   // Route for getting client list
-  app.get("/api/viewclients", function (req, res) {
+  app.get("/api/viewclients", isAdmin, function (req, res) {
     db.Client.findAll({
       attributes: ['id', 'name', 'email', 'address', 'status']
     })
@@ -166,7 +168,7 @@ module.exports = function (app) {
       });
   });
 
-  app.get("/api/signup", function (req, res) {
+  app.get("/api/signup", isAdmin, function (req, res) {
 
     db.User.findAll({
       attributes: ['id', 'name', 'email', 'address', 'status']
@@ -178,7 +180,7 @@ module.exports = function (app) {
 
 
   // route for getting all the active clients
-  app.get("/api/getclients", function (req, res) {
+  app.get("/api/getclients", isAdmin, function (req, res) {
     db.Client.findAll({
       attributes: ['id', 'email', 'status'],
       where: {
@@ -191,7 +193,7 @@ module.exports = function (app) {
   });
 
   //******************************** */
-  app.post("/api/createclienttasks", function (req, res) {
+  app.post("/api/createclienttasks", isAdmin, function (req, res) {
     var data = req.body.data;
     // console.log(data);
     db.ClientTask.bulkCreate(JSON.parse(data), { validate: true })
@@ -205,7 +207,7 @@ module.exports = function (app) {
   });
 
 
-  app.put("/api/updataskstatus", function (req, res) {
+  app.put("/api/updataskstatus",isAdmin, function (req, res) {
     var data = req.body;
     console.log(data);
     db.Task.update(
@@ -222,7 +224,7 @@ module.exports = function (app) {
   });
 
   // Route for getting clienttasks list
-  app.get("/api/viewclienttasks", function (req, res) {
+  app.get("/api/viewclienttasks",isUser, function (req, res) {
     db.sequelize.query(" select `clienttasks`.`id` as `clienttasks_id`, `clienttasks`.`status` as `clienttasks_status`, " +
       "`clients`.`id` AS `clients_id`, `clients`.`name` AS `clients_name`, `clients`.`address` AS `clients_address`, " +
       "`tasks`.`id` AS`tasks_id`, `tasks`.`title` AS`tasks_title`, `tasks`.`description` AS`tasks_description`, " +
@@ -239,4 +241,16 @@ module.exports = function (app) {
       });
   });
 
+
+
+  // route for getting all the active clients
+  app.get("/api/checkuser", isUser, function (req, res) {
+    res.json(req.user);
+  })
+
 };
+
+
+
+
+  
