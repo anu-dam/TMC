@@ -40,7 +40,7 @@ $(document).ready(function() {
         })
             
             .then(function() {
-                window.location.replace("/viewtasks");
+                window.location.replace("/assigntask");
                 // If there's an error, log the error
             })
             .catch(function(err) {
