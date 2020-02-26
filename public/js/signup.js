@@ -25,6 +25,17 @@ $(document).ready(function () {
     }
     $(document).ready(function () {
         getClientTasks();
+        
+
+        $("#usertype").change(function() {
+            if ($(this).val() == "client") {
+              $('#clientid-div').show();
+            } else {
+              $('#clientid-div').hide();
+            }
+          });
+          $("#usertype").trigger("change");
+
     });
 
 
@@ -35,14 +46,26 @@ $(document).ready(function () {
     // When the signup button is clicked, we validate the email and password are not blank
     signUpForm.on("submit", function (event) {
         event.preventDefault();
-        userData = {
-            email: emailInput.val().trim(),
-            password: passwordInput.val().trim(),
-            name: nameInput.val().trim(),
-            type: usertypeInput.val(),
-            status: "active",
-            ClientId: clientidInput.val().trim()
-        };
+        if(usertypeInput.val() == "administrator"){
+            userData = {
+                email: emailInput.val().trim(),
+                password: passwordInput.val().trim(),
+                name: nameInput.val().trim(),
+                type: usertypeInput.val(),
+                status: "active"                
+            };
+        }
+        else{
+            userData = {
+                email: emailInput.val().trim(),
+                password: passwordInput.val().trim(),
+                name: nameInput.val().trim(),
+                type: usertypeInput.val(),
+                status: "active",
+                ClientId: clientidInput.val().trim()
+            };
+        }
+        
 
         console.log('userdata', userData);
         if (!userData.email || !userData.password || !userData.type || !userData.name || !userData.status) {
