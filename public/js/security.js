@@ -6,7 +6,7 @@ function isAdmin(cb) {
         type: "GET",
         url: "/api/checkuser",
         success: function(data) {
-            if(data.type === 'administrator'){
+            if(data === 'administrator'){
                 validUser = true;
             } 
         },
