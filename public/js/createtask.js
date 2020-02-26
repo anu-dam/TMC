@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     // Getting references to our form and inputs
     var taskForm = $("#submit");
-    var title = $("#title");
+    var title = $("#title1");
     var description = $("#description");
     var status = $("#status");
     var date = $("#date");
