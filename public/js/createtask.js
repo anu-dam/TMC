@@ -13,13 +13,14 @@ $(document).ready(function() {
     // When the form is submitted, we validate there's an email and password entered
     taskForm.on("click", function(event) {
         event.preventDefault();
+        var users = JSON.parse(sessionStorage.getItem("userInfo"));
         var taskData = {
             title: title.val().trim(),
             description: description.val().trim(),
             status: ("Active"),
             date: date.val(),
             // ClientId: ClientId.val(),
-            UserId: (2)
+            UserId: users.id
         };
 
         console.log(taskData);
