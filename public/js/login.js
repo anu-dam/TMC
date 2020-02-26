@@ -32,7 +32,13 @@ $(document).ready(function() {
                 console.log(JSON.stringify(data));
                 sessionStorage.removeItem("userInfo"); // clearing email from local storage
                 sessionStorage.setItem("userInfo", JSON.stringify(data));
-                window.location.replace("/home");
+                if(data.type=="administrator"){
+                    window.location.replace("/home");
+                }
+                else {
+                    window.location.replace("/clienthome");
+                }
+                
                 // If there's an error, log the error
             })
             .catch(function(err) {
