@@ -28,8 +28,17 @@ $(document).ready(function() {
             email: email,
             password: password
         })
-            .then(function() {
-                window.location.replace("/home");
+            .then(function(data) {                
+                console.log(JSON.stringify(data));
+                sessionStorage.removeItem("userInfo"); // clearing email from local storage
+                sessionStorage.setItem("userInfo", JSON.stringify(data));
+                if(data.type=="administrator"){
+                    window.location.replace("/home");
+                }
+                else {
+                    window.location.replace("/clienthome");
+                }
+                
                 // If there's an error, log the error
             })
             .catch(function(err) {

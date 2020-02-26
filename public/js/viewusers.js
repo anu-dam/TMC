@@ -1,7 +1,5 @@
 function getUsers(cb) {
     $.get("/api/viewusers", function (data) {
-        console.log("/api/viewusers");
-        console.log(data);
         return cb(data);
     })
 }

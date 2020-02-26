@@ -1,5 +1,6 @@
 // Requiring path to so we can use relative routes to our HTML files
 var path = require("path");
+var { isAdmin, isClientUser, isUser } = require("../config/middleware/isAuthenticated")
 
 // Requiring our custom middleware for checking if a user is logged in
 // var isAuthenticated = require("../config/middleware/isAuthenticated");
@@ -16,7 +17,7 @@ module.exports = function (app) {
 
   });
 
- 
+
   app.get("/createclient", function (req, res) {
     res.render("createclient");
   });
@@ -27,7 +28,11 @@ module.exports = function (app) {
 
   app.get("/home", function (req, res) {
     res.render("home");
-  });
+  })
+
+  app.get("/clienthome", function (req, res) {
+    res.render("clienthome");
+  })
 
   app.get("/login", function (req, res) {
     // If the user already has an account send them to the members page
@@ -55,12 +60,13 @@ module.exports = function (app) {
     res.render("viewusers");
   });
 
-  
+
   app.get("/assigntask", function (req, res) {
     res.render("assigntask");
-  }); 
+  });
 
   app.get("/index", function (req, res) {
     res.render("index");
-  }); 
+  });
+
 };
