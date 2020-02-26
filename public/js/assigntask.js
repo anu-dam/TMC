@@ -122,7 +122,6 @@ function sendEmailtoClient(clientList){
         
       `;
     
-
     }
 
 }
@@ -151,4 +150,5 @@ isAdmin(function () {
     getTasks(function (allTasks) {
         initialiseTable(allTasks);
     })
+
 })
