@@ -28,7 +28,10 @@ $(document).ready(function() {
             email: email,
             password: password
         })
-            .then(function() {
+            .then(function(data) {                
+                console.log(JSON.stringify(data));
+                sessionStorage.removeItem("userInfo"); // clearing email from local storage
+                sessionStorage.setItem("userInfo", JSON.stringify(data));
                 window.location.replace("/home");
                 // If there's an error, log the error
             })

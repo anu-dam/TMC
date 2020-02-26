@@ -86,15 +86,15 @@ function createClientTaskList(taskID, clientList) {
     //populate database with clitnt tasks
     $.post("/api/createclienttasks", { data: JSON.stringify(clientTaskList) })
         .then(function (data) {
-            closeModel();
-            console.log("closeModel(); completed");
-            updaTaskStatus(taskID);
+            closeModel();            
+            updaTaskStatus(taskID, clientList);
         })
         .catch(handleLoginErr);
 }
 
+
 // update the current task status to "Assigned"
-function updaTaskStatus(taskID) {
+function updaTaskStatus(taskID, clientList) {
     console.log("function updaTaskStatus(taskID) started");
     // Send the PUT request.
     $.ajax("/api/updataskstatus", {
@@ -102,11 +102,18 @@ function updaTaskStatus(taskID) {
         data: {id : taskID }
     })
         .then(function (data) {
-            console.log(data);
-            location.reload();
+            sendEmailtoClient(clientList)
         })
         .catch(handleLoginErr);
 }
+
+function sendEmailtoClient(clientList){
+    // your code goes here for sending email
+    //clientlist contains all the client details
+    console.log("sendEmailtoClient(clientList) funciton");
+    //location.reload();
+}
+
 
 //assign to client function
 $(document).on("click", "#assign", function () {
