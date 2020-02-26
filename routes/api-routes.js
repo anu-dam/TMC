@@ -47,7 +47,7 @@ module.exports = function (app) {
     console.log("req:", userData);
     db.User.create(userData)
       .then(function () {
-        res.redirect(307, "/api/login");
+        res.redirect(307, "viewusers");
       })
       .catch(function (err) {
         res.sendStatus(400).json(err);
