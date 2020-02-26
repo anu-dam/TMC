@@ -9,7 +9,7 @@ function getClientTasks(cb) {
 
 
 function updateHeaders(data) {
-    if(data.lenght>0){
+    if(data.length>0){
     $("#clientname").attr('data-clintid', data[0].clients_id);
     $("#clientname").text(data[0].clients_name);
     $("#clientaddress").text(data[0].clients_address);
@@ -17,7 +17,7 @@ function updateHeaders(data) {
     
 }
 
-function initialiseTables(data) {
+function initialiseTables(data) {    
     updateHeaders(data);
     var usertable = $("#clienttaskstable");
     usertable.DataTable({
