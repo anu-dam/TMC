@@ -22,6 +22,7 @@ function initialiseTables(data) {
         "columns": [
             { "data": "tasks_title" },
             { "data": "tasks_description" },
+            { "data": "clients_name" },
             { "data": "tasks_completedBy" },
             { "data": "clienttasks_status" }
         ]
@@ -47,6 +48,8 @@ $(document).ready(function () {
         $("#complete").attr('data-status', selectedRow.clienttasks_status);
         $("#tasktitle").text(selectedRow.tasks_title);
         $("#taskdetail").text(selectedRow.tasks_description);
+        $("#taskcustname").text(selectedRow.clients_name);    
+        $("#taskcustaddress").text(selectedRow.clients_address);              
         $("#taskcompletedby").text(selectedRow.tasks_completedBy);
         $("#taskstatus").text(selectedRow.clienttasks_status);
         if ($("#taskstatus").text() != "Assigned") {
