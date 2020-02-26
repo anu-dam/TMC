@@ -55,6 +55,10 @@ module.exports = function (app) {
     res.render("viewclienttasks");
   });
 
+  app.get("/viewclienttasksclient", function (req, res) {
+    res.render("viewclienttasksclient");
+  });
+  
 
   app.get("/viewusers", function (req, res) {
     res.render("viewusers");

@@ -9,8 +9,7 @@ $(document).ready(function() {
     
     $(".fa-map").on("click", function(event){
         event.preventDefault();
-        console.log("redirect")
-        window.location.replace("index");
+        window.open("index", '_blank');
         
     }
     );

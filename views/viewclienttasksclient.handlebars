@@ -1,16 +1,14 @@
-<script src="/js/viewclienttasks.js"></script>
+<script src="/js/viewclienttasksclient.js"></script>
 </head>
 
 <body>
-  {{!-- {{> admin }} --}}
-  {{> admin }}
+  {{> user }}
   <div class="container">
     <h6>Welcome <span id="loggedInUserName"></span></h6>
 </div>
   <div class="container">
-    {{!-- <h2 id="clientname"></h2> --}}
-    {{!-- <h4 id="clientaddress"></h4> --}}
-    <h4>All Tasks</h4>
+    <h2 id="clientname"></h2>
+    <h4 id="clientaddress"></h4>
     <hr>
     <p>Tasks</p>
 
@@ -55,7 +53,7 @@
       <br>
     </div>
     <div class="modal-footer">
-      {{!-- <button id="complete" class="waves-effect waves-light btn">complete</button> --}}
+      <button id="complete" class="waves-effect waves-light btn">complete</button>
       <button id="cancel" class="modal-close btn waves-red">Cancel</button>
       {{!-- <a href="#!" id="cancel" class="modal-close btn waves-red">Cancel</a> --}}
     </div>
