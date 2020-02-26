@@ -272,6 +272,23 @@ module.exports = function (app) {
 
   
 
+  app.put("/api/updateassignedtaskstatus",isClientUser, function (req, res) {
+    var data = req.body;
+    console.log(data);
+    db.ClientTask.update(
+      { status: 'Completed' },
+      { where: { id: data.id } }
+    )
+      .then(function () {
+        // window.location.replace('/viewclienttasksclient');
+        res.render('viewclienttasksclient');
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.sendStatus(401).json(err);
+      });
+  });
+
   // route for getting all the active clients
   app.get("/api/checkuser", isUser, function (req, res) {
     res.json(req.user.type);

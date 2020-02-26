@@ -71,17 +71,12 @@ function closeModel() {
     instance.close();
 };
 
-//update task status by user
-function updateClientTaskStatus(taskID) {
-    console.log(taskID);
-};
 
 // assign to client function
 $(document).on("click", "#complete", function () {
     event.preventDefault();
     var taskID = $(this).attr("data-id");
     // console.log(taskID);    
-    updateClientTaskStatus(taskID);
 });
 
 

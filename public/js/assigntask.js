@@ -107,10 +107,11 @@ function updaTaskStatus(taskID, clientList) {
         .catch(handleLoginErr);
 }
 
+// this part is pending
 function sendEmailtoClient(clientList){
     // your code goes here for sending email
     //clientlist contains all the client details
-    console.log("sendEmailtoClient(clientList) funciton");
+    // console.log("sendEmailtoClient(clientList) funciton");
     //location.reload();
 }
 
