@@ -102,6 +102,7 @@ function updaTaskStatus(taskID, clientList) {
         data: {id : taskID }
     })
         .then(function (data) {
+            location.reload();
             sendEmailtoClient(clientList)
         })
         .catch(handleLoginErr);

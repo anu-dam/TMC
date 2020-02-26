@@ -84,7 +84,8 @@ function updateClientTaskStatus(taskID) {
     })
     .then(function (data) {
         closeModel();
-        res.redirect('/viewclienttasksclient');
+        location.reload();
+        // res.redirect('/viewclienttasksclient');
     })
     .catch(handleLoginErr);
 };
