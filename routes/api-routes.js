@@ -229,8 +229,8 @@ module.exports = function (app) {
       });
   });
 
-  // Route for getting clienttasks list
-  app.get("/api/viewclienttasks",isUser, function (req, res) {
+  // Route for getting clienttasks list for admins (view only)
+  app.get("/api/viewclienttasks",isAdmin, function (req, res) {
     db.sequelize.query(" select `clienttasks`.`id` as `clienttasks_id`, `clienttasks`.`status` as `clienttasks_status`, " +
       "`clients`.`id` AS `clients_id`, `clients`.`name` AS `clients_name`, `clients`.`address` AS `clients_address`, " +
       "`tasks`.`id` AS`tasks_id`, `tasks`.`title` AS`tasks_title`, `tasks`.`description` AS`tasks_description`, " +
@@ -246,6 +246,31 @@ module.exports = function (app) {
         res.sendStatus(401).json(err);
       });
   });
+
+
+
+  // Route for getting clienttasks list for clients to complete
+  app.get("/api/viewclienttasksclient/:clientId",isUser, function (req, res) {
+    var client = req.params.clientId;
+    db.sequelize.query(" select `clienttasks`.`id` as `clienttasks_id`, `clienttasks`.`status` as `clienttasks_status`, " +
+      "`clients`.`id` AS `clients_id`, `clients`.`name` AS `clients_name`, `clients`.`address` AS `clients_address`, " +
+      "`tasks`.`id` AS`tasks_id`, `tasks`.`title` AS`tasks_title`, `tasks`.`description` AS`tasks_description`, " +
+      "`tasks`.`status` AS`tasks_status`, `tasks`.`UserId` AS`tasks_UserId` , `tasks`.`completedBy` AS`tasks_completedBy` " +
+      "from clienttasks  inner join " +
+      "clients on clienttasks.clientId = clients.id " +
+      "inner join tasks on clienttasks.taskId = tasks.id WHERE clienttasks.clientId = :clientId", 
+      { replacements: { clientId: client },
+       type: Sequelize.QueryTypes.SELECT })
+      .then(function (data) {
+        res.json(data);
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.sendStatus(401).json(err);
+      });
+  });
+
+  
 
   // route for getting all the active clients
   app.get("/api/checkuser", isUser, function (req, res) {

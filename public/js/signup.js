@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // Getting references to our form and input
     var signUpForm = $("form.signup");
     var emailInput = $("input#email-input");
@@ -6,43 +6,74 @@ $(document).ready(function() {
     var nameInput = $("input#name-input");
     var usertypeInput = $("#usertype");
     var statusInput = $("#status");
-    var clientidInput = $("input#clientid");
+    var clientidInput = $("#clientid");
     var message = $(".msg");
 
     var userData;
 
-    // $.ajax({
-    //     url : "/api/viewclients",
-    //     type : "GET",
-    //     success : function(data){
+    function getClientTasks() {
+        $.get("/api/viewclients", function (data) {
+            console.log(data);
+            data.forEach(function (item) {
+                var option = ($('<option>', {
+                    value: item.id,
+                    text: item.name
+                }))
+                clientidInput.append(option);
+            })
+        })
+    }
+    $(document).ready(function () {
+        getClientTasks();
+        
 
-    //         var len = data.length;
+        $("#usertype").change(function() {
+            if ($(this).val() == "client") {
+              $('#clientid-div').show();
+            } else {
+              $('#clientid-div').hide();
+            }
+          });
+          $("#usertype").trigger("change");
 
-    //         console.log(data);
+    });
 
-    //     }
-    // });
+
+
+
 
 
     // When the signup button is clicked, we validate the email and password are not blank
-    signUpForm.on("submit", function(event) {
+    signUpForm.on("submit", function (event) {
         event.preventDefault();
-        userData = {
-            email: emailInput.val().trim(),
-            password: passwordInput.val().trim(),
-            name: nameInput.val().trim(),
-            type: usertypeInput.val(),
-            status: "active",
-            ClientId: clientidInput.val().trim()
-        };
+        if(usertypeInput.val() == "administrator"){
+            userData = {
+                email: emailInput.val().trim(),
+                password: passwordInput.val().trim(),
+                name: nameInput.val().trim(),
+                type: usertypeInput.val(),
+                status: "active"                
+            };
+        }
+        else{
+            userData = {
+                email: emailInput.val().trim(),
+                password: passwordInput.val().trim(),
+                name: nameInput.val().trim(),
+                type: usertypeInput.val(),
+                status: "active",
+                ClientId: clientidInput.val().trim()
+            };
+        }
+        
 
         console.log('userdata', userData);
-        if (!userData.email || !userData.password || !userData.type || !userData.name|| !userData.status) {
-            
+        if (!userData.email || !userData.password || !userData.type || !userData.name || !userData.status) {
+
             console.log('complete all fields');
             return;
         }
-        
+
         signUpUser(userData);
         // emailInput.val("");
         // passwordInput.val("");
@@ -53,9 +84,9 @@ $(document).ready(function() {
     function signUpUser(userData) {
         console.log('userdata', userData);
         $.post("/api/signup", userData)
-            .then(function() {
+            .then(function () {
                 window.location.replace("/viewusers");
-                
+
 
                 // If there's an error, handle it by throwing up a bootstrap alert
             })
@@ -63,13 +94,11 @@ $(document).ready(function() {
     }
 
     function handleLoginErr(err) {
-        
+
         $("#alert .msg").text(err.responseJSON);
         $("#alert").fadeIn(500);
     }
 
 });
 
-isAdmin(function () {
-
-})
+isAdmin(function () { });

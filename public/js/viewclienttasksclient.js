@@ -1,19 +1,24 @@
 function getClientTasks(cb) {
-    $.get("/api/viewclienttasks", function (data) {
+    var users = JSON.parse(sessionStorage.getItem("userInfo"));
+    var clientId = users.clientId;
+    $.get("/api/viewclienttasksclient/"+clientId, function (data) {
         return cb(data);
     })
 }
 
 
-// data from all the clients are shoing. so no heading
-// function updateHeaders(data) {
-//     $("#clientname").attr('data-clintid', data[0].clients_id);
-//     $("#clientname").text(data[0].clients_name);
-//     $("#clientaddress").text(data[0].clients_address);
-// }
+
+function updateHeaders(data) {
+    if(data.lenght>0){
+    $("#clientname").attr('data-clintid', data[0].clients_id);
+    $("#clientname").text(data[0].clients_name);
+    $("#clientaddress").text(data[0].clients_address);
+}
+    
+}
 
 function initialiseTables(data) {
-    // updateHeaders(data); data from all the clients are shoing. so no heading
+    updateHeaders(data);
     var usertable = $("#clienttaskstable");
     usertable.DataTable({
         dom: 'Bfrtip',
