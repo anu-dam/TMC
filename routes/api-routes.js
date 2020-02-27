@@ -22,7 +22,7 @@ module.exports = function (app) {
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
-  app.post("/api/signup",isAdmin, function (req, res) {
+  app.post("/api/signup", isAdmin, function (req, res) {
     // console.log(req);
     var userData;
     if (req.body.ClientId == '') {
@@ -47,7 +47,7 @@ module.exports = function (app) {
     console.log("req:", userData);
     db.User.create(userData)
       .then(function () {
-        res.redirect(307, "/api/login");
+        res.redirect(307, "/viewusers");
       })
       .catch(function (err) {
         res.sendStatus(400).json(err);
@@ -229,8 +229,8 @@ module.exports = function (app) {
       });
   });
 
-  // Route for getting clienttasks list
-  app.get("/api/viewclienttasks",isUser, function (req, res) {
+  // Route for getting clienttasks list for admins (view only)
+  app.get("/api/viewclienttasks",isAdmin, function (req, res) {
     db.sequelize.query(" select `clienttasks`.`id` as `clienttasks_id`, `clienttasks`.`status` as `clienttasks_status`, " +
       "`clients`.`id` AS `clients_id`, `clients`.`name` AS `clients_name`, `clients`.`address` AS `clients_address`, " +
       "`tasks`.`id` AS`tasks_id`, `tasks`.`title` AS`tasks_title`, `tasks`.`description` AS`tasks_description`, " +
@@ -240,6 +240,48 @@ module.exports = function (app) {
       "inner join tasks on clienttasks.taskId = tasks.id ", { type: Sequelize.QueryTypes.SELECT })
       .then(function (data) {
         res.json(data);
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.sendStatus(401).json(err);
+      });
+  });
+
+
+
+  // Route for getting clienttasks list for clients to complete
+  app.get("/api/viewclienttasksclient/:clientId",isUser, function (req, res) {
+    var client = req.params.clientId;
+    db.sequelize.query(" select `clienttasks`.`id` as `clienttasks_id`, `clienttasks`.`status` as `clienttasks_status`, " +
+      "`clients`.`id` AS `clients_id`, `clients`.`name` AS `clients_name`, `clients`.`address` AS `clients_address`, " +
+      "`tasks`.`id` AS`tasks_id`, `tasks`.`title` AS`tasks_title`, `tasks`.`description` AS`tasks_description`, " +
+      "`tasks`.`status` AS`tasks_status`, `tasks`.`UserId` AS`tasks_UserId` , `tasks`.`completedBy` AS`tasks_completedBy` " +
+      "from clienttasks  inner join " +
+      "clients on clienttasks.clientId = clients.id " +
+      "inner join tasks on clienttasks.taskId = tasks.id WHERE clienttasks.clientId = :clientId", 
+      { replacements: { clientId: client },
+       type: Sequelize.QueryTypes.SELECT })
+      .then(function (data) {
+        res.json(data);
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.sendStatus(401).json(err);
+      });
+  });
+
+  
+
+  app.put("/api/updateassignedtaskstatus",isClientUser, function (req, res) {
+    var data = req.body;
+    console.log(data);
+    db.ClientTask.update(
+      { status: 'Completed' },
+      { where: { id: data.id } }
+    )
+      .then(function () {
+        // window.location.replace('/viewclienttasksclient');
+        res.render('viewclienttasksclient');
       })
       .catch(function (err) {
         console.log(err);

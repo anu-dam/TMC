@@ -1,19 +1,24 @@
 function getClientTasks(cb) {
-    $.get("/api/viewclienttasks", function (data) {
+    var users = JSON.parse(sessionStorage.getItem("userInfo"));
+    var clientId = users.clientId;
+    $.get("/api/viewclienttasksclient/" + clientId, function (data) {
         return cb(data);
     })
 }
 
 
-// data from all the clients are shoing. so no heading
-// function updateHeaders(data) {
-//     $("#clientname").attr('data-clintid', data[0].clients_id);
-//     $("#clientname").text(data[0].clients_name);
-//     $("#clientaddress").text(data[0].clients_address);
-// }
+
+function updateHeaders(data) {
+    if (data.length > 0) {
+        $("#clientname").attr('data-clintid', data[0].clients_id);
+        $("#clientname").text(data[0].clients_name);
+        $("#clientaddress").text(data[0].clients_address);
+    }
+
+}
 
 function initialiseTables(data) {
-    // updateHeaders(data); data from all the clients are shoing. so no heading
+    updateHeaders(data);
     var usertable = $("#clienttaskstable");
     usertable.DataTable({
         dom: 'Bfrtip',
@@ -22,7 +27,6 @@ function initialiseTables(data) {
         "columns": [
             { "data": "tasks_title" },
             { "data": "tasks_description" },
-            { "data": "clients_name" },
             { "data": "tasks_completedBy" },
             { "data": "clienttasks_status" }
         ]
@@ -48,8 +52,6 @@ $(document).ready(function () {
         $("#complete").attr('data-status', selectedRow.clienttasks_status);
         $("#tasktitle").text(selectedRow.tasks_title);
         $("#taskdetail").text(selectedRow.tasks_description);
-        $("#taskcustname").text(selectedRow.clients_name);    
-        $("#taskcustaddress").text(selectedRow.clients_address);              
         $("#taskcompletedby").text(selectedRow.tasks_completedBy);
         $("#taskstatus").text(selectedRow.clienttasks_status);
         if ($("#taskstatus").text() != "Assigned") {
@@ -71,12 +73,30 @@ function closeModel() {
     instance.close();
 };
 
+//update task status by user
+function updateClientTaskStatus(taskID) {
+    console.log(taskID);
+    console.log("function updaTaskStatus(taskID) started");
+    // Send the PUT request.
+    $.ajax("/api/updateassignedtaskstatus", {
+        type: "PUT",
+        data: { id: taskID }
+    })
+    .then(function (data) {
+        closeModel();
+        location.reload();
+        // res.redirect('/viewclienttasksclient');
+    })
+    .catch(handleLoginErr);
+};
+
 
 // assign to client function
 $(document).on("click", "#complete", function () {
     event.preventDefault();
     var taskID = $(this).attr("data-id");
     // console.log(taskID);    
+    updateClientTaskStatus(taskID);
 });
 
 
