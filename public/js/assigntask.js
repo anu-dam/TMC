@@ -1,3 +1,6 @@
+//******************************** */
+// This is for getting all the tasks
+//******************************** */
 function getTasks(cb) {
     $.get("/api/gettasks", function (data) {
         // console.log(data);
@@ -5,7 +8,9 @@ function getTasks(cb) {
     })
 }
 
-
+//******************************** */
+//This is for creating data table
+//******************************** */
 function initialiseTable(data) {
     var taskTable = $("#tasktable");
     taskTable.DataTable({
@@ -23,12 +28,15 @@ function initialiseTable(data) {
 
 }
 
+//******************************** */
+// Document ready funciton will run in parrllel with API data pull
+//******************************** */
 // When the dom is loaded
 $(document).ready(function () {
     $('.modal').modal({
         dismissible: false, // Modal cannot be closed by clicking anywhere outside
     });
-    
+
     var selectedRow;
     $('#tasktable tbody').on('click', 'tr', function () {
         var table = $("#tasktable").DataTable();
@@ -49,14 +57,19 @@ $(document).ready(function () {
         openModel();
     });
 
-    
+
 });
 
+//******************************** */
+//******************************** */
 function handleLoginErr(err) {
     $("#alert .msg").text(err.responseJSON);
     $("#alert").fadeIn(500);
-  }
-  
+}
+
+//******************************** */
+// This is for handling model
+//******************************** */
 function openModel() {
     var instance = M.Modal.getInstance($('.modal'));
     instance.open();
@@ -67,8 +80,9 @@ function closeModel() {
     instance.close();
 };
 
-
+//******************************** */
 // get current active client list
+//******************************** */
 function getClients(taskID) {
     $.get("/api/getclients", function (data) {
         // console.log(data);
@@ -76,6 +90,9 @@ function getClients(taskID) {
     })
 }
 
+//******************************** */
+// preparing client task list
+//******************************** */
 function createClientTaskList(taskID, clientList) {
     var clientTaskList = [];
     for (var i = 0; i < clientList.length; i++) {
@@ -90,23 +107,29 @@ function createClientTaskList(taskID, clientList) {
     }
     // console.log("created clientTaskList");
 
+    //******************************** */
+    // Call API to push data to database
     //populate database with clitnt tasks
+    //******************************** */
+
     $.post("/api/createclienttasks", { data: JSON.stringify(clientTaskList) })
         .then(function (data) {
-            closeModel();            
+            closeModel();
             updaTaskStatus(taskID, clientList);
         })
         .catch(handleLoginErr);
 }
 
 
+//******************************** */
 // update the current task status to "Assigned"
+//******************************** */
 function updaTaskStatus(taskID, clientList) {
     // console.log("function updaTaskStatus(taskID) started");
     // Send the PUT request.
     $.ajax("/api/updataskstatus", {
         type: "PUT",
-        data: {id : taskID }
+        data: { id: taskID }
     })
         .then(function (data) {
             location.reload();
@@ -115,15 +138,20 @@ function updaTaskStatus(taskID, clientList) {
         .catch(handleLoginErr);
 }
 
+//******************************** */
+// FUTURE DEVELOPMENT (EMAIL ALERT)
+//******************************** */
 // this part is pending
-function sendEmailtoClient(clientList){
+function sendEmailtoClient(clientList) {
     // your code goes here for sending email
     //clientlist contains all the client details
     // console.log("sendEmailtoClient(clientList) funciton");
     //location.reload();
 }
 
-
+//******************************** */
+// Waiting for assign button click
+//******************************** */
 //assign to client function
 $(document).on("click", "#assign", function () {
     event.preventDefault();
@@ -134,9 +162,11 @@ $(document).on("click", "#assign", function () {
 });
 
 
+//******************************** */
 // execute immidiately
 //function to prevent unautherised access
 //available in all UI level througn main
+//******************************** */
 isAdmin(function () {
     //bring out from document.ready for speed up page
     //will call api and dom painting together

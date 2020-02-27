@@ -1,4 +1,7 @@
-$(document).ready(function() {
+//******************************** */
+// Creating Task
+//******************************** */
+$(document).ready(function () {
     // Getting references to our form and inputs
     var taskForm = $("#submit");
     var title = $("#title1");
@@ -6,9 +9,11 @@ $(document).ready(function() {
     var status = $("#status");
     var date = $("#date");
     // var ClientId = $("#id");
-
+    //******************************** */
     // When the form is submitted, we validate there's an email and password entered
-    taskForm.on("click", function(event) {
+    //******************************** */
+
+    taskForm.on("click", function (event) {
         event.preventDefault();
         var users = JSON.parse(sessionStorage.getItem("userInfo"));
         var taskData = {
@@ -20,13 +25,15 @@ $(document).ready(function() {
             UserId: users.id
         };
 
-        console.log(taskData);
+        // console.log(taskData);
 
         createtask(taskData);
-        
-    });
 
+    });
+    //******************************** */
     // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
+    //******************************** */
+
     function createtask(taskData) {
         $.post("/api/createtask", {
             title: taskData.title,
@@ -36,16 +43,18 @@ $(document).ready(function() {
             ClientId: taskData.ClientId,
             UserId: taskData.UserId
         })
-            
-            .then(function() {
+
+            .then(function () {
                 window.location.replace("/assigntask");
                 // If there's an error, log the error
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
             });
     }
-
+    //******************************** */
+    // date picker
+    //******************************** */
     $(function () {
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',
@@ -53,6 +62,7 @@ $(document).ready(function() {
     });
 });
 
-
-
+//******************************** */
+// user autherisation
+//******************************** */
 isAdmin(function () { })
