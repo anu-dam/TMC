@@ -141,6 +141,10 @@ module.exports = function (app) {
     })
       .then(function (dbTask) {
         res.json(dbTask);
+      })
+      .catch(function (err) {
+        // console.log(err);
+        res.sendStatus(401).json(err);
       });
   });
 
@@ -152,8 +156,11 @@ module.exports = function (app) {
       include: [{ model: db.Client, attributes: ['id', 'name'] }]
     })
       .then(function (dbUser) {
-
         res.json(dbUser);
+      })
+      .catch(function (err) {
+        // console.log(err);
+        res.sendStatus(401).json(err);
       });
   });
 
@@ -165,6 +172,10 @@ module.exports = function (app) {
     })
       .then(function (dbUser) {
         res.json(dbUser);
+      })
+      .catch(function (err) {
+        // console.log(err);
+        res.sendStatus(401).json(err);
       });
   });
 
@@ -177,6 +188,10 @@ module.exports = function (app) {
     })
       .then(function (dbUser) {
         res.json(dbUser);
+      })
+      .catch(function (err) {
+        // console.log(err);
+        res.sendStatus(401).json(err);
       });
   });
 
@@ -192,6 +207,10 @@ module.exports = function (app) {
     })
       .then(function (dbUser) {
         res.json(dbUser);
+      })
+      .catch(function (err) {
+        // console.log(err);
+        res.sendStatus(401).json(err);
       });
   });
 
@@ -300,6 +319,5 @@ module.exports = function (app) {
   app.get("/api/checkuser", isUser, function (req, res) {
     res.json(req.user.type);
   })
-
 }
 

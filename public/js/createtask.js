@@ -48,9 +48,11 @@ $(document).ready(function () {
                 window.location.replace("/assigntask");
                 // If there's an error, log the error
             })
-            .catch(function (err) {
-                console.log(err);
-            });
+            // .catch(function (err) {
+            //     // console.log(err);
+            //     handleLoginErr;
+            // });
+            .catch(handleLoginErr);
     }
     //******************************** */
     // date picker
@@ -65,4 +67,4 @@ $(document).ready(function () {
 //******************************** */
 // user autherisation
 //******************************** */
-isAdmin(function () { })
+// isAdmin(function () { })
