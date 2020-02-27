@@ -1,3 +1,6 @@
+//******************************** */
+// Getting all assigned tasks for a particular client based on user
+//******************************** */
 function getClientTasks(cb) {
     var users = JSON.parse(sessionStorage.getItem("userInfo"));
     var clientId = users.clientId;
@@ -6,7 +9,9 @@ function getClientTasks(cb) {
     })
 }
 
-
+//******************************** */
+// Show the heading for client page
+//******************************** */
 
 function updateHeaders(data) {
     if (data.length > 0) {
@@ -16,6 +21,10 @@ function updateHeaders(data) {
     }
 
 }
+
+//******************************** */
+// creating table
+//******************************** */
 
 function initialiseTables(data) {
     updateHeaders(data);
@@ -30,11 +39,11 @@ function initialiseTables(data) {
             { "data": "tasks_completedBy" },
             { "data": "clienttasks_status" }
         ],
-        "createdRow": function(row, rowData, dataIndex) {
-            console.log(rowData.tasks_completedBy);
-            console.log(new Date (rowData.clienttasks_status));
-            
-            if ( (new Date (rowData.tasks_completedBy))  < (new Date()) && (rowData.clienttasks_status !== "Completed")) {
+        "createdRow": function (row, rowData, dataIndex) {
+            // console.log(rowData.tasks_completedBy);
+            // console.log(new Date(rowData.clienttasks_status));
+
+            if ((new Date(rowData.tasks_completedBy)) < (new Date()) && (rowData.clienttasks_status !== "Completed")) {
                 $(row).addClass('red');
             }
         }
@@ -42,8 +51,9 @@ function initialiseTables(data) {
 }
 
 
-
+//******************************** */
 // When the dom is loaded
+//******************************** */
 $(document).ready(function () {
     console.log("started loading data");
     $('.modal').modal({
@@ -54,9 +64,6 @@ $(document).ready(function () {
     var selectedRow;
     $('#clienttaskstable tbody').on('click', 'tr', function () {
         var table = $("#clienttaskstable").DataTable();
-
-        
-
         // console.log(table.row(this).data());
         selectedRow = table.row(this).data();
         $("#complete").attr('data-id', selectedRow.clienttasks_id);
@@ -74,6 +81,9 @@ $(document).ready(function () {
     });
 });
 
+//******************************** */
+// Model actions
+//******************************** */
 function openModel() {
     var instance = M.Modal.getInstance($('.modal'));
     instance.open();
@@ -84,7 +94,9 @@ function closeModel() {
     instance.close();
 };
 
+//******************************** */
 //update task status by user
+//******************************** */
 function updateClientTaskStatus(taskID) {
     console.log(taskID);
     console.log("function updaTaskStatus(taskID) started");
@@ -101,8 +113,9 @@ function updateClientTaskStatus(taskID) {
         .catch(handleLoginErr);
 };
 
-
-// assign to client function
+//******************************** */
+// assign to client function triggering
+//******************************** */
 $(document).on("click", "#complete", function () {
     event.preventDefault();
     var taskID = $(this).attr("data-id");
@@ -110,6 +123,9 @@ $(document).on("click", "#complete", function () {
     updateClientTaskStatus(taskID);
 });
 
+//******************************** */
+// initialize logic
+//******************************** */
 getClientTasks(function (allClientTasks) {
     initialiseTables(allClientTasks);
 })    

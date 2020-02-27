@@ -1,10 +1,15 @@
+//******************************** */
+// Get all the clients
+//******************************** */
 function getClients(cb) {
     $.get("/api/viewclients", function (data) {
         return cb(data);
     })
 }
 
-
+//******************************** */
+// Creating table
+//******************************** */
 function initialiseTable(data) {
     var clientTable = $("#clienttable");
     clientTable.DataTable({
@@ -27,7 +32,9 @@ function initialiseTable(data) {
 // execute immidiately
 
 
-
+//******************************** */
+// initialize with user autherization check
+//******************************** */
 isAdmin(function () {
     getClients(function (allTasks) {
         initialiseTable(allTasks);

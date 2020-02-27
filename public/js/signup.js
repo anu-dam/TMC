@@ -11,7 +11,10 @@ $(document).ready(function () {
 
     var userData; // to make user data globally available
 
+    
+    //******************************** */
     //to get all the created clients so that when create new client user, assign client
+    //******************************** */
     function getClientTasks() {
         $.get("/api/viewclients", function (data) {
             console.log(data);
@@ -27,9 +30,13 @@ $(document).ready(function () {
 
     //main function
     $(document).ready(function () {
-        getClientTasks(); // calling to get all the client tasks
-
+        //******************************** */
+        // calling to get all the client tasks
+        //******************************** */
+        getClientTasks();
+        //******************************** */
         //upon triggering show and hide client name field
+        //******************************** */
         $("#usertype").change(function () {
             if ($(this).val() == "client") {
                 $('#clientid-div').show();
@@ -37,17 +44,24 @@ $(document).ready(function () {
                 $('#clientid-div').hide();
             }
         });
-
+        //******************************** */
         //create trigger
+        //******************************** */
+
         $("#usertype").trigger("change");
 
     });
-
+    //******************************** */
     // When the signup button is clicked, we validate the email and password are not blank
+    //******************************** */
+
     signUpForm.on("submit", function (event) {
         event.preventDefault();
+        //******************************** */
         //based on user type set the object
         //Administrator is not belongs to any client
+        //******************************** */
+
         if (usertypeInput.val() == "administrator") {
             userData = {
                 email: emailInput.val().trim(),
@@ -58,7 +72,9 @@ $(document).ready(function () {
             };
         }
         else {
+            //******************************** */
             //client user belongs to a client then client id is a must
+            //******************************** */
             userData = {
                 email: emailInput.val().trim(),
                 password: passwordInput.val().trim(),
@@ -81,8 +97,10 @@ $(document).ready(function () {
         // passwordInput.val("");
     });
 
+    //******************************** */
     // Does a post to the signup route. If successful, we are redirected to the members page
     // Otherwise we log any errors
+    //******************************** */
     function signUpUser(userData) {
         console.log('userdata', userData);
         $.post("/api/signup", userData)
@@ -92,25 +110,10 @@ $(document).ready(function () {
             })
             .catch(handleLoginErr);
     }
-
-
-
 });
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
+//******************************** */
 //function to prevent unautherised access
 //available in all UI level througn main
-isAdmin(function () {});
-=======
->>>>>>> master
-
-//function to prevent unautherised access
-//available in all UI level througn main
-isAdmin(function () {});
-
-<<<<<<< HEAD
-=======
->>>>>>> e8eb86603ad1e6b913805093631333aef30030e7
->>>>>>> master
+//******************************** */
+isAdmin(function () { });

@@ -1,10 +1,15 @@
+//******************************** */
+// get all the client tasks
+//******************************** */
 function getClientTasks(cb) {
     $.get("/api/viewclienttasks", function (data) {
         return cb(data);
     })
 }
 
-
+//******************************** */
+// this part is removed as page is showing data from all the clients
+//******************************** */
 // data from all the clients are shoing. so no heading
 // function updateHeaders(data) {
 //     $("#clientname").attr('data-clintid', data[0].clients_id);
@@ -12,6 +17,10 @@ function getClientTasks(cb) {
 //     $("#clientaddress").text(data[0].clients_address);
 // }
 
+
+//******************************** */
+// Creating table 
+//******************************** */
 function initialiseTables(data) {
     // updateHeaders(data); data from all the clients are shoing. so no heading
     var usertable = $("#clienttaskstable");
@@ -26,11 +35,13 @@ function initialiseTables(data) {
             { "data": "tasks_completedBy" },
             { "data": "clienttasks_status" }
         ],
-        "createdRow": function(row, rowData, dataIndex) {
-            console.log(rowData.tasks_completedBy);
-            console.log(new Date (rowData.clienttasks_status));
-            
-            if ( (new Date (rowData.tasks_completedBy))  < (new Date()) && (rowData.clienttasks_status !== "Completed")) {
+        "createdRow": function (row, rowData, dataIndex) {
+            // console.log(rowData.tasks_completedBy);
+            // console.log(new Date (rowData.clienttasks_status));
+            //******************************** */
+            // Updating the rows with highlighting for overdue tasks
+            //******************************** */
+            if ((new Date(rowData.tasks_completedBy)) < (new Date()) && (rowData.clienttasks_status !== "Completed")) {
                 $(row).addClass('red');
             }
         }
@@ -38,8 +49,10 @@ function initialiseTables(data) {
 }
 
 
-
+//******************************** */
+// Creating table 
 // When the dom is loaded
+//******************************** */
 $(document).ready(function () {
     console.log("started loading data");
     $('.modal').modal({
@@ -56,8 +69,8 @@ $(document).ready(function () {
         $("#complete").attr('data-status', selectedRow.clienttasks_status);
         $("#tasktitle").text(selectedRow.tasks_title);
         $("#taskdetail").text(selectedRow.tasks_description);
-        $("#taskcustname").text(selectedRow.clients_name);    
-        $("#taskcustaddress").text(selectedRow.clients_address);              
+        $("#taskcustname").text(selectedRow.clients_name);
+        $("#taskcustaddress").text(selectedRow.clients_address);
         $("#taskcompletedby").text(selectedRow.tasks_completedBy);
         $("#taskstatus").text(selectedRow.clienttasks_status);
         if ($("#taskstatus").text() != "Assigned") {
@@ -69,15 +82,18 @@ $(document).ready(function () {
     });
 });
 
+//******************************** */
+// Model operation
+//******************************** */
 function openModel() {
     var instance = M.Modal.getInstance($('.modal'));
     instance.open();
 };
 
-// function closeModel() {
-//     var instance = M.Modal.getInstance($('.modal'));
-//     instance.close();
-// };
+function closeModel() {
+    var instance = M.Modal.getInstance($('.modal'));
+    instance.close();
+};
 
 
 // // assign to client function
@@ -87,6 +103,9 @@ function openModel() {
 //     // console.log(taskID);    
 // });
 
+//******************************** */
+// Initial function
+//******************************** */
 
 getClientTasks(function (allClientTasks) {
     initialiseTables(allClientTasks);
