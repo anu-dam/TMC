@@ -25,7 +25,15 @@ function initialiseTables(data) {
             { "data": "clients_name" },
             { "data": "tasks_completedBy" },
             { "data": "clienttasks_status" }
-        ]
+        ],
+        "createdRow": function(row, rowData, dataIndex) {
+            console.log(rowData.tasks_completedBy);
+            console.log(new Date (rowData.clienttasks_status));
+            
+            if ( (new Date (rowData.tasks_completedBy))  < (new Date()) && (rowData.clienttasks_status !== "Completed")) {
+                $(row).addClass('red');
+            }
+        }
     });
 }
 
@@ -66,21 +74,18 @@ function openModel() {
     instance.open();
 };
 
-function closeModel() {
-    var instance = M.Modal.getInstance($('.modal'));
-    instance.close();
-};
+// function closeModel() {
+//     var instance = M.Modal.getInstance($('.modal'));
+//     instance.close();
+// };
 
 
-// assign to client function
-$(document).on("click", "#complete", function () {
-    event.preventDefault();
-    var taskID = $(this).attr("data-id");
-    // console.log(taskID);    
-});
-
-
-
+// // assign to client function
+// $(document).on("click", "#complete", function () {
+//     event.preventDefault();
+//     var taskID = $(this).attr("data-id");
+//     // console.log(taskID);    
+// });
 
 
 getClientTasks(function (allClientTasks) {

@@ -9,8 +9,9 @@ $(document).ready(function () {
     var clientidInput = $("#clientid");
     var message = $(".msg");
 
-    var userData;
+    var userData; // to make user data globally available
 
+    //to get all the created clients so that when create new client user, assign client
     function getClientTasks() {
         $.get("/api/viewclients", function (data) {
             console.log(data);
@@ -23,39 +24,41 @@ $(document).ready(function () {
             })
         })
     }
-    $(document).ready(function () {
-        getClientTasks();
-        
 
-        $("#usertype").change(function() {
+    //main function
+    $(document).ready(function () {
+        getClientTasks(); // calling to get all the client tasks
+
+        //upon triggering show and hide client name field
+        $("#usertype").change(function () {
             if ($(this).val() == "client") {
-              $('#clientid-div').show();
+                $('#clientid-div').show();
             } else {
-              $('#clientid-div').hide();
+                $('#clientid-div').hide();
             }
-          });
-          $("#usertype").trigger("change");
+        });
+
+        //create trigger
+        $("#usertype").trigger("change");
 
     });
-
-
-
-
-
 
     // When the signup button is clicked, we validate the email and password are not blank
     signUpForm.on("submit", function (event) {
         event.preventDefault();
-        if(usertypeInput.val() == "administrator"){
+        //based on user type set the object
+        //Administrator is not belongs to any client
+        if (usertypeInput.val() == "administrator") {
             userData = {
                 email: emailInput.val().trim(),
                 password: passwordInput.val().trim(),
                 name: nameInput.val().trim(),
                 type: usertypeInput.val(),
-                status: "active"                
+                status: "active"
             };
         }
-        else{
+        else {
+            //client user belongs to a client then client id is a must
             userData = {
                 email: emailInput.val().trim(),
                 password: passwordInput.val().trim(),
@@ -65,15 +68,14 @@ $(document).ready(function () {
                 ClientId: clientidInput.val().trim()
             };
         }
-        
 
+        //verifying all data is available or print erro
         console.log('userdata', userData);
         if (!userData.email || !userData.password || !userData.type || !userData.name || !userData.status) {
-
-            console.log('complete all fields');
+            console.log('complete all fields');//show error in console only
             return;
         }
-
+        //calling api function
         signUpUser(userData);
         // emailInput.val("");
         // passwordInput.val("");
@@ -86,19 +88,15 @@ $(document).ready(function () {
         $.post("/api/signup", userData)
             .then(function () {
                 window.location.replace("/viewusers");
-
-
                 // If there's an error, handle it by throwing up a bootstrap alert
             })
             .catch(handleLoginErr);
     }
 
-    function handleLoginErr(err) {
 
-        $("#alert .msg").text(err.responseJSON);
-        $("#alert").fadeIn(500);
-    }
 
 });
 
-isAdmin(function () { });
+//function to prevent unautherised access
+//available in all UI level througn main
+isAdmin(function () {});
