@@ -97,6 +97,14 @@ $(document).ready(function () {
 
 });
 
+<<<<<<< HEAD
 //function to prevent unautherised access
 //available in all UI level througn main
 isAdmin(function () {});
+=======
+
+//function to prevent unautherised access
+//available in all UI level througn main
+isAdmin(function () {});
+
+>>>>>>> e8eb86603ad1e6b913805093631333aef30030e7
