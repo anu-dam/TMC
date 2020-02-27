@@ -101,4 +101,4 @@ $(document).ready(function () {
 
 });
 
-isAdmin(function () { });
+// isAdmin(function () { });
