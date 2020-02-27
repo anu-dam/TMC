@@ -24,6 +24,7 @@ module.exports = function (app) {
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
+  // app.post("/api/signup", isAdmin, function (req, res)
   app.post("/api/signup", isAdmin, function (req, res) {
     // console.log(req);
     var userData;
@@ -231,13 +232,13 @@ module.exports = function (app) {
   // Route for getting clienttasks list for admins (view only)
   // this is for admin user to view all the tasks 
   app.get("/api/viewclienttasks", isAdmin, function (req, res) {
-    db.sequelize.query(" select `clienttasks`.`id` as `clienttasks_id`, `clienttasks`.`status` as `clienttasks_status`, " +
-      "`clients`.`id` AS `clients_id`, `clients`.`name` AS `clients_name`, `clients`.`address` AS `clients_address`, " +
-      "`tasks`.`id` AS`tasks_id`, `tasks`.`title` AS`tasks_title`, `tasks`.`description` AS`tasks_description`, " +
-      "`tasks`.`status` AS`tasks_status`, `tasks`.`UserId` AS`tasks_UserId` , `tasks`.`completedBy` AS`tasks_completedBy` " +
-      "from clienttasks  inner join " +
-      "clients on clienttasks.clientId = clients.id " +
-      "inner join tasks on clienttasks.taskId = tasks.id ", { type: Sequelize.QueryTypes.SELECT })
+    db.sequelize.query(" select `ClientTasks`.`id` as `clienttasks_id`, `ClientTasks`.`status` as `clienttasks_status`, " +
+      "`Clients`.`id` AS `clients_id`, `Clients`.`name` AS `clients_name`, `Clients`.`address` AS `clients_address`, " +
+      "`Tasks`.`id` AS`tasks_id`, `Tasks`.`title` AS`tasks_title`, `Tasks`.`description` AS`tasks_description`, " +
+      "`Tasks`.`status` AS`tasks_status`, `Tasks`.`UserId` AS`tasks_UserId` , `Tasks`.`completedBy` AS`tasks_completedBy` " +
+      "from ClientTasks  inner join " +
+      "Clients on ClientTasks.clientId = Clients.id " +
+      "inner join Tasks on ClientTasks.taskId = Tasks.id ", { type: Sequelize.QueryTypes.SELECT })
       .then(function (data) {
         res.json(data);
       })
@@ -253,13 +254,13 @@ module.exports = function (app) {
   // Route for getting clienttasks list for clients to complete
   app.get("/api/viewclienttasksclient/:clientId", isUser, function (req, res) {
     var client = req.params.clientId;
-    db.sequelize.query(" select `clienttasks`.`id` as `clienttasks_id`, `clienttasks`.`status` as `clienttasks_status`, " +
-      "`clients`.`id` AS `clients_id`, `clients`.`name` AS `clients_name`, `clients`.`address` AS `clients_address`, " +
-      "`tasks`.`id` AS`tasks_id`, `tasks`.`title` AS`tasks_title`, `tasks`.`description` AS`tasks_description`, " +
-      "`tasks`.`status` AS`tasks_status`, `tasks`.`UserId` AS`tasks_UserId` , `tasks`.`completedBy` AS`tasks_completedBy` " +
-      "from clienttasks  inner join " +
-      "clients on clienttasks.clientId = clients.id " +
-      "inner join tasks on clienttasks.taskId = tasks.id WHERE clienttasks.clientId = :clientId",
+    db.sequelize.query(" select `ClientTasks`.`id` as `clienttasks_id`, `ClientTasks`.`status` as `clienttasks_status`, " +
+      "`Clients`.`id` AS `clients_id`, `Clients`.`name` AS `clients_name`, `Clients`.`address` AS `clients_address`, " +
+      "`Tasks`.`id` AS`tasks_id`, `Tasks`.`title` AS`tasks_title`, `Tasks`.`description` AS`tasks_description`, " +
+      "`Tasks`.`status` AS`tasks_status`, `Tasks`.`UserId` AS`tasks_UserId` , `Tasks`.`completedBy` AS`tasks_completedBy` " +
+      "from ClientTasks  inner join " +
+      "Clients on ClientTasks.clientId = Clients.id " +
+      "inner join Tasks on ClientTasks.taskId = Tasks.id WHERE ClientTasks.clientId = :clientId",
       {
         replacements: { clientId: client },
         type: Sequelize.QueryTypes.SELECT
