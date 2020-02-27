@@ -97,6 +97,8 @@ $(document).ready(function () {
 
 });
 
+
 //function to prevent unautherised access
 //available in all UI level througn main
 isAdmin(function () {});
+

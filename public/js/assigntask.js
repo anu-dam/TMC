@@ -121,6 +121,19 @@ function sendEmailtoClient(clientList){
     //clientlist contains all the client details
     // console.log("sendEmailtoClient(clientList) funciton");
     //location.reload();
+    for( var i = 0; i < clientList.length; i++){
+        var emailList = clientList[i].email;
+
+        console.log(emailList);
+
+        const output = `
+        <H3>You have a new assigned task</H3>
+        <p>Please check the system and complete the task accordignly</p>
+        
+      `;
+    
+    }
+
 }
 
 
@@ -144,4 +157,5 @@ isAdmin(function () {
         // build table after getting data only (callback)
         initialiseTable(allTasks);
     })
+
 })
