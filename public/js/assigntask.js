@@ -1,6 +1,6 @@
 function getTasks(cb) {
     $.get("/api/gettasks", function (data) {
-        console.log(data);
+        // console.log(data);
         return cb(data);
     })
 }
@@ -48,8 +48,15 @@ $(document).ready(function () {
         }
         openModel();
     });
+
+    
 });
 
+function handleLoginErr(err) {
+    $("#alert .msg").text(err.responseJSON);
+    $("#alert").fadeIn(500);
+  }
+  
 function openModel() {
     var instance = M.Modal.getInstance($('.modal'));
     instance.open();
@@ -64,7 +71,7 @@ function closeModel() {
 // get current active client list
 function getClients(taskID) {
     $.get("/api/getclients", function (data) {
-        console.log(data);
+        // console.log(data);
         createClientTaskList(taskID, data);
     })
 }
@@ -81,7 +88,7 @@ function createClientTaskList(taskID, clientList) {
         }
         clientTaskList.push(clientTask);
     }
-    console.log("created clientTaskList");
+    // console.log("created clientTaskList");
 
     //populate database with clitnt tasks
     $.post("/api/createclienttasks", { data: JSON.stringify(clientTaskList) })
@@ -95,7 +102,7 @@ function createClientTaskList(taskID, clientList) {
 
 // update the current task status to "Assigned"
 function updaTaskStatus(taskID, clientList) {
-    console.log("function updaTaskStatus(taskID) started");
+    // console.log("function updaTaskStatus(taskID) started");
     // Send the PUT request.
     $.ajax("/api/updataskstatus", {
         type: "PUT",
@@ -139,18 +146,15 @@ $(document).on("click", "#assign", function () {
     getClients(taskID);
 });
 
-//for showing error
-function handleLoginErr(err) {
-    $("#alert .msg").text(err.responseJSON);
-    $("#alert").fadeIn(500);
-}
 
 // execute immidiately
-
-
-
+//function to prevent unautherised access
+//available in all UI level througn main
 isAdmin(function () {
+    //bring out from document.ready for speed up page
+    //will call api and dom painting together
     getTasks(function (allTasks) {
+        // build table after getting data only (callback)
         initialiseTable(allTasks);
     })
 

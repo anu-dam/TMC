@@ -25,6 +25,7 @@
     
 	<script src="js/security.js"></script>
 	<script src="js/general.js"></script>	
+	<script src="js/errlog.js"></script>
 	{{!-- <script src="/js/login.js"></script>
 	<script src="/js/signup.js"></script>
 	<script src="/js/viewclient.js"></script>
@@ -38,6 +39,11 @@
 
 	{{{ body }}}
 
+	
+	<div style="display: none" id="alert" class="alert alert-danger" role="alert">
+		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		<span class="sr-only">Error:</span> <span class="msg"></span>
+	</div>
 	</body>
 
 </html>

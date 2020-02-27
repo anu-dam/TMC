@@ -47,7 +47,7 @@ module.exports = function (app) {
     console.log("req:", userData);
     db.User.create(userData)
       .then(function () {
-        res.redirect(307, "/viewusers");
+        res.redirect(201, '/viewusers');
       })
       .catch(function (err) {
         res.sendStatus(400).json(err);
@@ -80,7 +80,7 @@ module.exports = function (app) {
 
   //******************************** */
   app.post("/api/createclient",isAdmin, function (req, res) {
-
+    console.log(req.body);
     var clientData = {
       name: req.body.name,
       address: req.body.address,
