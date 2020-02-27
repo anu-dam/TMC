@@ -25,7 +25,7 @@ $(document).ready(function() {
 
         };
 
-        console.log(clientData);
+        // console.log(clientData);
 
         loginUser(clientData);
         
@@ -43,9 +43,7 @@ $(document).ready(function() {
                 window.location.replace("/viewclient");
                 // If there's an error, log the error
             })
-            .catch(function(err) {
-                console.log(err);
-            });
+            .catch(handleLoginErr);
     }
 });
 

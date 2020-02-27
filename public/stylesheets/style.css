@@ -156,3 +156,7 @@ h2 {
         font-weight: 500;
         padding: 6px 12px;
       }
+
+      .red {
+        background-color: lightgoldenrodyellow !important;
+      }
