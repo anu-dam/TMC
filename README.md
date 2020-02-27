@@ -8,15 +8,15 @@
 
 <H4> Login Page </H4>
 
-![First Image](readme-content/home.png)
+![First Image](readmecontent/login.png)
 
 <H4> Home Page </H4>
 
-![Second Image](readme-content/Home.png)
+![Second Image](readmecontent/home.png)
 
 <H4> Task Assign Page </H4>
 
-![Third Image](readme-content/taskassign.png)
+![Third Image](readmecontent/taskassign.png)
 
 Heroku Repository  https://taskmasterpro.herokuapp.com
 
