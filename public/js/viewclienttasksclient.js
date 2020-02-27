@@ -1,7 +1,7 @@
 function getClientTasks(cb) {
     var users = JSON.parse(sessionStorage.getItem("userInfo"));
     var clientId = users.clientId;
-    $.get("/api/viewclienttasksclient/"+clientId, function (data) {
+    $.get("/api/viewclienttasksclient/" + clientId, function (data) {
         return cb(data);
     })
 }
@@ -9,15 +9,15 @@ function getClientTasks(cb) {
 
 
 function updateHeaders(data) {
-    if(data.length>0){
-    $("#clientname").attr('data-clintid', data[0].clients_id);
-    $("#clientname").text(data[0].clients_name);
-    $("#clientaddress").text(data[0].clients_address);
-}
-    
+    if (data.length > 0) {
+        $("#clientname").attr('data-clintid', data[0].clients_id);
+        $("#clientname").text(data[0].clients_name);
+        $("#clientaddress").text(data[0].clients_address);
+    }
+
 }
 
-function initialiseTables(data) {    
+function initialiseTables(data) {
     updateHeaders(data);
     var usertable = $("#clienttaskstable");
     usertable.DataTable({
@@ -76,7 +76,20 @@ function closeModel() {
 //update task status by user
 function updateClientTaskStatus(taskID) {
     console.log(taskID);
+    console.log("function updaTaskStatus(taskID) started");
+    // Send the PUT request.
+    $.ajax("/api/updateassignedtaskstatus", {
+        type: "PUT",
+        data: { id: taskID }
+    })
+    .then(function (data) {
+        closeModel();
+        location.reload();
+        // res.redirect('/viewclienttasksclient');
+    })
+    .catch(handleLoginErr);
 };
+
 
 // assign to client function
 $(document).on("click", "#complete", function () {
