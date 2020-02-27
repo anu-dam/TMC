@@ -29,7 +29,15 @@ function initialiseTables(data) {
             { "data": "tasks_description" },
             { "data": "tasks_completedBy" },
             { "data": "clienttasks_status" }
-        ]
+        ],
+        "createdRow": function(row, rowData, dataIndex) {
+            console.log(rowData.tasks_completedBy);
+            console.log(new Date (rowData.clienttasks_status));
+            
+            if ( (new Date (rowData.tasks_completedBy))  < (new Date()) && (rowData.clienttasks_status !== "Completed")) {
+                $(row).addClass('red');
+            }
+        }
     });
 }
 
@@ -46,6 +54,9 @@ $(document).ready(function () {
     var selectedRow;
     $('#clienttaskstable tbody').on('click', 'tr', function () {
         var table = $("#clienttaskstable").DataTable();
+
+        
+
         // console.log(table.row(this).data());
         selectedRow = table.row(this).data();
         $("#complete").attr('data-id', selectedRow.clienttasks_id);
@@ -82,12 +93,12 @@ function updateClientTaskStatus(taskID) {
         type: "PUT",
         data: { id: taskID }
     })
-    .then(function (data) {
-        closeModel();
-        location.reload();
-        // res.redirect('/viewclienttasksclient');
-    })
-    .catch(handleLoginErr);
+        .then(function (data) {
+            closeModel();
+            location.reload();
+            // res.redirect('/viewclienttasksclient');
+        })
+        .catch(handleLoginErr);
 };
 
 
@@ -98,10 +109,6 @@ $(document).on("click", "#complete", function () {
     // console.log(taskID);    
     updateClientTaskStatus(taskID);
 });
-
-
-
-
 
 getClientTasks(function (allClientTasks) {
     initialiseTables(allClientTasks);

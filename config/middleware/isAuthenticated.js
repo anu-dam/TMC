@@ -4,7 +4,7 @@ module.exports = { isAdmin, isClientUser, isUser }
 // is admin
 function isAdmin (req, res, next) {
   // If the user is logged in, continue with the request to the restricted route
-  console.log(`Authenticaing : ${JSON.stringify(req.user)}` )
+  // console.log(`Authenticaing : ${JSON.stringify(req.user)}` )
   if (req.user && req.user.type=="administrator") {
     return next();
   }
@@ -17,7 +17,7 @@ function isAdmin (req, res, next) {
 // is Normal user
 function isClientUser (req, res, next) {
   // If the user is logged in, continue with the request to the restricted route
-  console.log(`Authenticaing : ${JSON.stringify(req.user)}` )
+  // console.log(`Authenticaing : ${JSON.stringify(req.user)}` )
   if (req.user && (req.user.type=="client" )) {
     return next();
   }
@@ -29,7 +29,7 @@ function isClientUser (req, res, next) {
 
 function isUser (req, res, next) {
   // If the user is logged in, continue with the request to the restricted route
-  console.log(`Authenticaing : ${JSON.stringify(req.user)}` )
+  // console.log(`Authenticaing : ${JSON.stringify(req.user)}` )
   if (req.user && (req.user.type=="administrator" || req.user.type=="client" )) {
     return next();
   }
