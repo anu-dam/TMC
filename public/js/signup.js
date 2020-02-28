@@ -17,7 +17,7 @@ $(document).ready(function () {
     //******************************** */
     function getClientTasks() {
         $.get("/api/viewclients", function (data) {
-            console.log(data);
+            // console.log(data);
             data.forEach(function (item) {
                 var option = ($('<option>', {
                     value: item.id,
@@ -26,6 +26,7 @@ $(document).ready(function () {
                 clientidInput.append(option);
             })
         })
+        .catch(handleLoginErr);
     }
 
     //main function
@@ -86,9 +87,9 @@ $(document).ready(function () {
         }
 
         //verifying all data is available or print erro
-        console.log('userdata', userData);
+        // console.log('userdata', userData);
         if (!userData.email || !userData.password || !userData.type || !userData.name || !userData.status) {
-            console.log('complete all fields');//show error in console only
+            // console.log('complete all fields');//show error in console only
             return;
         }
         //calling api function
@@ -102,7 +103,7 @@ $(document).ready(function () {
     // Otherwise we log any errors
     //******************************** */
     function signUpUser(userData) {
-        console.log('userdata', userData);
+        // console.log('userdata', userData);
         $.post("/api/signup", userData)
             .then(function () {
                 window.location.replace("/viewusers");
@@ -116,4 +117,4 @@ $(document).ready(function () {
 //function to prevent unautherised access
 //available in all UI level througn main
 //******************************** */
-isAdmin(function () { });
+// isAdmin(function () { });

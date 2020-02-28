@@ -4,9 +4,18 @@
 function getClientTasks(cb) {
     var users = JSON.parse(sessionStorage.getItem("userInfo"));
     var clientId = users.clientId;
-    $.get("/api/viewclienttasksclient/" + clientId, function (data) {
+    $.get("/api/viewclienttasksclient/" + clientId, function (data, err) {
+        // console.log("err", data);
         return cb(data);
     })
+    // .fail(function(err) {
+    //     console.log("err", err);
+    //     if(err) {
+    //         location.href = "/login";
+    //     }
+    //     // alert('woops'); // or whatever
+    // })
+    .catch(handleLoginErr);
 }
 
 //******************************** */
@@ -55,7 +64,7 @@ function initialiseTables(data) {
 // When the dom is loaded
 //******************************** */
 $(document).ready(function () {
-    console.log("started loading data");
+    // console.log("started loading data");
     $('.modal').modal({
         dismissible: false, // Modal cannot be closed by clicking anywhere outside
     });
@@ -98,8 +107,8 @@ function closeModel() {
 //update task status by user
 //******************************** */
 function updateClientTaskStatus(taskID) {
-    console.log(taskID);
-    console.log("function updaTaskStatus(taskID) started");
+    // console.log(taskID);
+    // console.log("function updaTaskStatus(taskID) started");
     // Send the PUT request.
     $.ajax("/api/updateassignedtaskstatus", {
         type: "PUT",

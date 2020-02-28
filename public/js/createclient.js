@@ -50,4 +50,4 @@ $(document).ready(function () {
 //******************************** */
 // User autherisation
 //******************************** */
-isAdmin(function () { });
+// isAdmin(function () { });

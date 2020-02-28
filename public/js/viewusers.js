@@ -5,6 +5,7 @@ function getUsers(cb) {
     $.get("/api/viewusers", function (data) {
         return cb(data);
     })
+    .catch(handleLoginErr);
 }
 //******************************** */
 // Create table
@@ -28,11 +29,11 @@ function initialiseTable(data) {
 //******************************** */
 // Initialize and check whether the user is the right one
 //******************************** */
-isAdmin(function () {
+// isAdmin(function () {
     getUsers(function (allUsers) {
         initialiseTable(allUsers);
     })
-})
+// })
 
 // $(document).ready(function () {
 //     var usertable = $("#usertable");

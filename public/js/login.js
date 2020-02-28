@@ -29,7 +29,7 @@ $(document).ready(function() {
             password: password
         })
             .then(function(data) {                
-                console.log(JSON.stringify(data));
+                // console.log(JSON.stringify(data));
                 sessionStorage.removeItem("userInfo"); // clearing email from local storage
                 sessionStorage.setItem("userInfo", JSON.stringify(data));
                 if(data.type=="administrator"){
@@ -41,9 +41,10 @@ $(document).ready(function() {
                 
                 // If there's an error, log the error
             })
-            .catch(function(err) {
-                console.log(err);
-            });
+            // .catch(function(err) {
+            //     console.log(err);
+            // });
+            .catch(handleLoginErr);
     }
 });
 

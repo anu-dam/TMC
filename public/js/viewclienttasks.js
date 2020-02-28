@@ -5,6 +5,7 @@ function getClientTasks(cb) {
     $.get("/api/viewclienttasks", function (data) {
         return cb(data);
     })
+    .catch(handleLoginErr);
 }
 
 //******************************** */
@@ -54,7 +55,7 @@ function initialiseTables(data) {
 // When the dom is loaded
 //******************************** */
 $(document).ready(function () {
-    console.log("started loading data");
+    // console.log("started loading data");
     $('.modal').modal({
         dismissible: false, // Modal cannot be closed by clicking anywhere outside
     });
