@@ -1,1 +1,1 @@
-isAdmin(function () {});
+// isAdmin(function () {});

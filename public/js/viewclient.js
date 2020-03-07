@@ -5,6 +5,7 @@ function getClients(cb) {
     $.get("/api/viewclients", function (data) {
         return cb(data);
     })
+    .catch(handleLoginErr);
 }
 
 //******************************** */
@@ -35,11 +36,11 @@ function initialiseTable(data) {
 //******************************** */
 // initialize with user autherization check
 //******************************** */
-isAdmin(function () {
+// isAdmin(function () {
     getClients(function (allTasks) {
         initialiseTable(allTasks);
     })
-})
+// })
 
 
 // $(document).ready(function () {

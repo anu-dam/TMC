@@ -62,10 +62,10 @@ $(document).ready(function () {
 
 //******************************** */
 //******************************** */
-function handleLoginErr(err) {
-    $("#alert .msg").text(err.responseJSON);
-    $("#alert").fadeIn(500);
-}
+// function handleLoginErr(err) {
+//     $("#alert .msg").text(err.responseJSON);
+//     $("#alert").fadeIn(500);
+// }
 
 //******************************** */
 // This is for handling model
@@ -88,6 +88,7 @@ function getClients(taskID) {
         // console.log(data);
         createClientTaskList(taskID, data);
     })
+    .catch(handleLoginErr);
 }
 
 //******************************** */
@@ -166,7 +167,7 @@ $(document).on("click", "#assign", function () {
 //function to prevent unautherised access
 //available in all UI level througn main
 //******************************** */
-isAdmin(function () {
+// isAdmin(function () {
     //bring out from document.ready for speed up page
     //will call api and dom painting together
     getTasks(function (allTasks) {
@@ -174,4 +175,4 @@ isAdmin(function () {
         initialiseTable(allTasks);
     })
 
-})
+// })
