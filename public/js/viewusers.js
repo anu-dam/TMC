@@ -13,7 +13,7 @@ function getUsers(cb) {
 function initialiseTable(data) {
     var usertable = $("#usertable");
     usertable.DataTable({
-        data,
+        data : data,
         rowId: 'id',
         dom: 'lBfrtip',
         "columns": [
