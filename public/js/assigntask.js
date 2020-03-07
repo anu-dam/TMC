@@ -14,7 +14,7 @@ function getTasks(cb) {
 function initialiseTable(data) {
     var taskTable = $("#tasktable");
     taskTable.DataTable({
-        data,
+        data : data,
         rowId: 'id',
         "columns": [
             { "data": "title" },

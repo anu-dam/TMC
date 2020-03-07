@@ -40,7 +40,7 @@ function initialiseTables(data) {
     var usertable = $("#clienttaskstable");
     usertable.DataTable({
         dom: 'Bfrtip',
-        data,
+        data : data,
         rowId: 'clienttasks_id',
         "columns": [
             { "data": "tasks_title" },
