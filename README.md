@@ -102,5 +102,10 @@ We use [Git](https://git-scm.com/) for versioning.
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
+## Default Login
+
+User id : admin@mail.com
+Password: 1
+
 ## Acknowledgments
 
