@@ -34,12 +34,18 @@ The motivation behind this project is a real-world issue faced by one of the pro
 - Express-handlebars
 - Passport and passport-local for authentication
 
-## Links
+# Links
 
-[Heroku Repository](https://taskmasterpro.herokuapp.com)
+## Repository
 
-[GIT Repository](https://github.com/anu-dam/TMC)
+  > https://github.com/anu-dam/TMC
 
+## Deployed Application URL
+
+- Heroku
+  > https://taskmasterpro.herokuapp.com
+
+  
 ### Login Page
 
 ![First Image](readmecontent/login.png)
